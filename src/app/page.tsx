@@ -1,15 +1,18 @@
-import { Button } from '@/components/ui/button';
+import { MainLayout } from '@/components/layout/MainLayout';
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm">
-        <h1 className="mb-8 text-center text-4xl font-bold">Welcome to Next.js 14+ Template</h1>
-        <div className="flex justify-center gap-4">
-          <Button>Get Started</Button>
-          <Button variant="outline">Learn More</Button>
+    <MainLayout>
+      <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
+        <div className="flex max-w-[980px] flex-col items-start gap-2">
+          <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
+            Next.js TypeScript Template
+          </h1>
+          <p className="max-w-[700px] text-lg text-muted-foreground">
+            A modern, full-stack web application template with Next.js, TypeScript, and Prisma.
+          </p>
         </div>
-      </div>
-    </main>
+      </section>
+    </MainLayout>
   );
 }
