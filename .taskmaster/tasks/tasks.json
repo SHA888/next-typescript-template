@@ -42,7 +42,7 @@
         "id": 4,
         "title": "Implement Prisma ORM Integration",
         "description": "Set up Prisma ORM with the initial database schema, migrations, and client configuration for type-safe database operations. Include all models required by the application as specified in the PRD.",
-        "status": "done",
+        "status": "in-progress",
         "dependencies": [
           1
         ],

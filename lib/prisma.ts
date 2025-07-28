@@ -1,21 +1,57 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 // PrismaClient is attached to the `global` object in development to prevent
 // exhausting your database connection limit.
 // Learn more: https://pris.ly/d/help/next-js-best-practices
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
+declare global {
+  // eslint-disable-next-line no-var
+  var prisma: PrismaClient | undefined;
+}
 
-export const prisma =
-  globalForPrisma.prisma ||
-  new PrismaClient({
-    log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
+// Create a type for the Prisma client with our custom extensions
+type PrismaClientWithExtensions = ReturnType<typeof createPrismaClient>;
+
+function createPrismaClient() {
+  const prisma = new PrismaClient({
+    log: process.env.NODE_ENV === 'development' 
+      ? ['query', 'error', 'warn'] 
+      : ['error'],
   });
 
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+  // Add middleware for logging slow queries
+  prisma.$use(async (params, next) => {
+    const before = Date.now();
+    const result = await next(params);
+    const after = Date.now();
+    const queryTime = after - before;
+    
+    if (queryTime > 2000) { // Log slow queries (> 2s)
+      console.warn(`[PRISMA] Slow query (${queryTime}ms):`, {
+        model: params.model,
+        action: params.action,
+        queryTime: `${queryTime}ms`,
+      });
+    }
+    
+    return result;
+  });
+
+  return prisma;
+}
+
+export const prisma: PrismaClientWithExtensions =
+  global.prisma || createPrismaClient();
+
+if (process.env.NODE_ENV !== 'production') {
+  global.prisma = prisma;
+}
 
 // Export all Prisma types for use in your application
 export * from '@prisma/client';
+
+// Export Prisma types for type safety
+export type { Prisma };
 
 // Helper function to connect to the database
 export async function connectDB() {

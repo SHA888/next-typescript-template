@@ -27,7 +27,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuild-info
-next-env.d.ts
+# next-env.d.ts temporary enabled
 
 # Prisma
 /prisma/.local
