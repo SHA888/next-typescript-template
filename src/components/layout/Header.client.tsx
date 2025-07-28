@@ -32,9 +32,9 @@ export function Header({ className }: HeaderProps) {
         {/* Logo */}
         <div className="flex items-center space-x-2">
           <div className="from-primary to-secondary flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br">
-            <span className="text-primary-foreground text-sm font-bold">RT</span>
+            <span className="text-primary-foreground text-sm font-bold">NT</span>
           </div>
-          <span className="text-gradient-primary text-xl font-bold">React Template</span>
+          <span className="text-foreground text-xl font-bold">Next Template</span>
         </div>
 
         {/* Desktop Navigation */}
