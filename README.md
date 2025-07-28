@@ -18,7 +18,7 @@ This is a full-stack web application template built with Next.js, TypeScript, an
 ## Prerequisites
 
 - **Node.js**: Version 18.x or higher.
-- **npm or yarn**: For package management.
+- **Package Manager**: npm, yarn, or pnpm (all supported).
 - **Database**: PostgreSQL, MongoDB, or another Prisma-supported database.
 - **Git**: For version control.
 
@@ -43,6 +43,12 @@ Or using yarn:
 
 ```bash
 yarn install
+```
+
+Or using pnpm:
+
+```bash
+pnpm install
 ```
 
 ### 3. Configure Environment Variables

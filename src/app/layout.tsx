@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from '@/components/theme-provider';
 import { cn } from '@/lib/utils';
-import '@/styles/globals.css';
+import './globals.css';
 
 // Optimize font loading with display: 'swap' and preload
 const inter = Inter({
@@ -33,7 +33,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           'font-sans'
         )}
       >
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -51,6 +51,17 @@ logs
 
 # OS specific
 
+dev-debug.log
+# Dependency directories
+node_modules/
+# Environment variables
+# Editor directories and files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
 # Task files
 # tasks.json
-# tasks/
+# tasks/ 
