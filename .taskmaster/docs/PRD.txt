@@ -1,0 +1,636 @@
+# Next.js TypeScript Template Upgrade PRD
+
+<context>
+# Overview
+This PRD outlines the plan to upgrade the existing React SPA (built with Vite and React Router) to a full-stack Next.js 14+ application with TypeScript and Prisma ORM as described in the project README. The upgrade will transform this into a modern, scalable full-stack template that supports server-side rendering, API routes, and optional hybrid backend architecture.
+
+# Core Features
+1. **Next.js 14+ App Router Implementation**
+   - Replace Vite with Next.js build system
+   - Implement file-based routing using App Router
+   - Support for SSR, SSG, and server components
+
+2. **TypeScript Integration**
+   - Full type safety across frontend and backend
+   - Shared types between client and server
+
+3. **Prisma ORM Integration**
+   - Type-safe database operations
+   - Support for PostgreSQL, MongoDB, or other databases
+   - Database migration workflows
+
+4. **UI Component Framework**
+   - Tailwind CSS for styling
+   - shadcn/ui component library integration
+   - Consistent design system
+
+5. **Code Quality Tools**
+   - ESLint and Prettier configuration
+   - Husky and lint-staged for pre-commit hooks
+
+6. **Optional Hybrid Backend Approach**
+   - Next.js API routes for basic backend needs
+   - Support for separate Node.js/Express backend with Prisma
+
+# User Experience
+The upgraded template will serve developers who need:
+- A modern, type-safe full-stack application framework
+- Flexibility to choose between serverless and traditional backend approaches
+- Well-organized project structure that scales
+- Comprehensive documentation and examples
+</context>
+
+<PRD>
+# Technical Architecture
+
+## System Components
+
+### Frontend Architecture
+1. **App Router Structure**
+   - `/app` - Core Next.js App Router directory
+     - `/app/page.tsx` - Home page (SSR)
+     - `/app/layout.tsx` - Root layout with providers
+     - `/app/api` - API routes directory
+   - `/components` - React components organized by domain and type
+     - `/components/ui` - UI components (shadcn/ui)
+     - `/components/layout` - Layout components
+     - `/components/forms` - Form components
+   - `/lib` - Shared utilities and services
+     - `/lib/types.ts` - Shared TypeScript interfaces
+     - `/lib/prisma.ts` - Prisma client initialization
+     - `/lib/utils.ts` - Helper functions
+
+### Backend Architecture
+1. **Next.js API Routes**
+   - `/app/api/[resource]/route.ts` - RESTful API endpoints
+   - Middleware for authentication and request validation
+
+2. **Optional Express Backend** (for hybrid approach)
+   - `/backend` - Separate backend project directory
+     - `/backend/src/routes` - Express routes
+     - `/backend/src/controllers` - Business logic
+     - `/backend/src/models` - Data models
+     - `/backend/src/middleware` - Express middleware
+
+### Database Layer
+1. **Prisma ORM**
+   - `/prisma/schema.prisma` - Database schema definition
+   - `/prisma/migrations` - Database migrations
+   - Database connection pooling and optimization
+
+## Data Models
+
+### Core Models
+1. **User Model**
+```prisma
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+```
+
+2. **Additional Models** (to be extended as needed)
+
+### API Interfaces
+1. **REST API Endpoints**
+   - GET, POST, PUT, DELETE methods for resources
+   - Structured error responses
+   - Pagination, filtering, and sorting
+
+2. **Type-Safe API Responses**
+   - Consistent response formats
+   - Error handling patterns
+
+## Infrastructure Requirements
+1. **Development Environment**
+   - Node.js 18.x or higher
+   - npm or yarn for package management
+   - PostgreSQL, MongoDB, or other database
+
+2. **Production Deployment**
+   - Vercel for Next.js frontend
+   - Render (or similar) for separate backend (if using hybrid approach)
+   - Database hosting (e.g., Vercel Postgres, MongoDB Atlas)
+
+# Development Roadmap
+
+## Phase 1: Project Setup and Basic Structure
+1. **Initialize Next.js App Router Project**
+   - Set up Next.js 14+ with TypeScript
+   - Configure Tailwind CSS and shadcn/ui
+   - Set up ESLint, Prettier, Husky, and lint-staged
+
+2. **Database Integration**
+   - Initialize Prisma with basic schema
+   - Set up database connection
+   - Create initial migrations
+
+3. **Core UI Components**
+   - Implement layouts and basic UI components
+   - Set up Tailwind theme and design system
+
+4. **Authentication Foundation**
+   - Set up authentication framework (NextAuth.js)
+   - Implement basic login/signup flows
+
+## Phase 2: API Layer and Data Management
+1. **API Routes Implementation**
+   - Create type-safe API route handlers
+   - Implement request validation with Zod
+   - Set up error handling middleware
+
+2. **Data Access Layer**
+   - Build Prisma service and utilities
+   - Implement CRUD operations for core models
+   - Set up database seeding
+
+3. **Client-Side Data Management**
+   - Implement React Query for data fetching
+   - Set up optimistic updates and cache management
+   - Create custom hooks for data operations
+
+## Phase 3: Hybrid Backend Support
+1. **Express Backend Setup**
+   - Create Express server structure
+   - Set up middleware (CORS, error handling)
+   - Implement Prisma integration
+
+2. **API Integration**
+   - Create shared types between Next.js and Express
+   - Implement API endpoints matching Next.js routes
+   - Set up authentication flow between services
+
+3. **Deployment Configuration**
+   - Configure Vercel deployment for Next.js
+   - Set up Render deployment for Express backend
+   - Establish secure communication between services
+
+## Phase 4: Documentation and Examples
+1. **Documentation**
+   - Create comprehensive README with setup instructions
+   - Document API endpoints and data models
+   - Provide examples of common patterns
+
+2. **Example Implementations**
+   - Create example pages using different rendering strategies
+   - Implement example API routes
+   - Build example forms with validation
+
+3. **Swappable Component Documentation**
+   - Provide instructions for alternative ORMs
+   - Document UI library alternatives
+   - Explain backend framework options
+
+# Logical Dependency Chain
+
+## Foundation Components (Build First)
+1. Next.js project setup with TypeScript
+2. Prisma integration and database connection
+3. Basic layout and UI component structure
+4. Core authentication flow
+
+## Intermediate Components
+1. API route implementation and type-safety
+2. CRUD operations for core models
+3. Form components and validation
+4. Client-side data fetching patterns
+
+## Advanced Components
+1. Hybrid backend implementation
+2. Advanced authentication features
+3. Performance optimizations
+4. Specialized examples and use cases
+
+# Risks and Mitigations
+
+## Technical Challenges
+1. **Risk**: Complex migration from Vite to Next.js
+   **Mitigation**: Implement incremental migration, starting with core files and gradually integrating components
+
+2. **Risk**: Type-safety across full stack
+   **Mitigation**: Establish shared types early, leverage Prisma's generated types, and implement strict TypeScript checks
+
+3. **Risk**: Performance issues with SSR
+   **Mitigation**: Implement strategic component splitting, leverage React Server Components where appropriate, and optimize data fetching
+
+## MVP Considerations
+1. **Risk**: Feature creep beyond minimum viable product
+   **Mitigation**: Clearly define Phase 1 scope, focus on core functionality first, and prioritize working examples over exhaustive features
+
+2. **Risk**: Over-engineering database schema
+   **Mitigation**: Start with minimal schema focusing on core entities, design for extensibility rather than completeness
+
+## Resource Constraints
+1. **Risk**: Complexity of maintaining dual backend approaches
+   **Mitigation**: Make hybrid approach truly optional, provide clear documentation for each approach, and minimize shared code complexity
+
+2. **Risk**: Learning curve for developers new to Next.js App Router
+   **Mitigation**: Provide detailed comments, examples, and documentation for key patterns and architectural decisions
+
+# Appendix
+
+## Technical Specifications
+
+### Next.js Configuration
+```javascript
+// next.config.js
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  experimental: {
+    serverActions: true,
+  },
+};
+
+module.exports = nextConfig;
+```
+
+### Prisma Schema Design Principles
+- Use modern Prisma features (composite types, etc.)
+- Design for extensibility
+- Leverage relations for complex data models
+- Implement proper indexing strategies
+
+### API Route Implementation Examples
+
+```typescript
+// app/api/users/route.ts
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/prisma';
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const page = parseInt(searchParams.get('page') || '1');
+  const pageSize = parseInt(searchParams.get('pageSize') || '10');
+  
+  try {
+    const users = await prisma.user.findMany({
+      skip: (page - 1) * pageSize,
+      take: pageSize,
+      orderBy: { createdAt: 'desc' },
+    });
+    
+    const total = await prisma.user.count();
+    
+    return NextResponse.json({
+      data: users,
+      meta: {
+        total,
+        page,
+        pageSize,
+        totalPages: Math.ceil(total / pageSize),
+      },
+    });
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch users' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+    
+    const user = await prisma.user.create({
+      data: body,
+    });
+    
+    return NextResponse.json(user, { status: 201 });
+  } catch (error) {
+    console.error('Error creating user:', error);
+    return NextResponse.json(
+      { error: 'Failed to create user' },
+      { status: 500 }
+    );
+  }
+}
+```
+
+## Implementation Plan
+
+### Phase 1: Project Migration and Setup
+
+#### 1. Initialize Next.js Project
+
+```bash
+# Create new Next.js project with App Router
+npx create-next-app@latest .
+```
+
+#### 2. Configure Project Dependencies
+
+```json
+// package.json (key dependencies)
+{
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "@prisma/client": "^5.0.0",
+    "tailwindcss": "^3.4.0",
+    "@hookform/resolvers": "^3.3.0",
+    "zod": "^3.22.0",
+    "@tanstack/react-query": "^5.0.0",
+    "date-fns": "^3.0.0",
+    "next-themes": "^0.2.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "prisma": "^5.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0",
+    "prettier": "^3.0.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
+    "autoprefixer": "^10.4.0",
+    "postcss": "^8.4.0"
+  }
+}
+```
+
+#### 3. Tailwind and UI Components Configuration
+
+```javascript
+// tailwind.config.js
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ["class"],
+  content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
+  ],
+  theme: {
+    container: {
+      center: true,
+      padding: "2rem",
+      screens: {
+        "2xl": "1400px",
+      },
+    },
+    extend: {
+      colors: {
+        border: "hsl(var(--border))",
+        input: "hsl(var(--input))",
+        ring: "hsl(var(--ring))",
+        background: "hsl(var(--background))",
+        foreground: "hsl(var(--foreground))",
+        primary: {
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
+        },
+        secondary: {
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        muted: {
+          DEFAULT: "hsl(var(--muted))",
+          foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
+        },
+        popover: {
+          DEFAULT: "hsl(var(--popover))",
+          foreground: "hsl(var(--popover-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
+        },
+      },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
+      keyframes: {
+        "accordion-down": {
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
+        },
+        "accordion-up": {
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+      },
+      animation: {
+        "accordion-down": "accordion-down 0.2s ease-out",
+        "accordion-up": "accordion-up 0.2s ease-out",
+      },
+    },
+  },
+  plugins: [require("tailwindcss-animate")],
+}
+```
+
+### Phase 2: Component Migration Strategy
+
+#### 1. Component Organization Structure
+
+```
+/components
+  /ui          # shadcn/ui components
+  /layout      # Layout components (header, footer, etc.)
+  /sections    # Page sections (hero, features, etc.)
+  /forms       # Form components
+  /shared      # Shared components used across the app
+```
+
+#### 2. Migrating Components
+
+1. **Migration Process**:
+   - Analyze all existing React components in `/src/components`
+   - Move UI components to `/components/ui`
+   - Adapt layout components to Next.js App Router conventions
+   - Update imports and paths across the codebase
+
+2. **Layout Migration Example**:
+```typescript
+// app/layout.tsx
+import { ReactNode } from "react";
+import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
+import { Toaster as Sonner } from "@/components/ui/sonner";
+import { cn } from "@/lib/utils";
+
+import "@/styles/globals.css";
+
+const inter = Inter({ subsets: ["latin"] });
+
+export const metadata = {
+  title: "Next.js TypeScript Template",
+  description: "A modern full-stack web application template",
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn(
+        "min-h-screen bg-background font-sans antialiased",
+        inter.className
+      )}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Toaster />
+          <Sonner />
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+### Phase 3: Advanced Features Implementation
+
+#### 1. Hybrid Backend Approach
+
+**Next.js API Routes** (default approach):
+- Implement in `/app/api/*` directory
+- Use route handlers with HTTP methods
+
+**Express Backend** (optional hybrid approach):
+- Create `/backend` directory
+- Implement Express routes matching Next.js API routes
+- Share types between both systems
+
+#### 2. Authentication Implementation
+
+```typescript
+// app/api/auth/[...nextauth]/route.ts
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@auth/prisma-adapter";
+import { prisma } from "@/lib/prisma";
+import { compare } from "bcrypt";
+
+const handler = NextAuth({
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" }
+      },
+      async authorize(credentials) {
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
+
+        const user = await prisma.user.findUnique({
+          where: { email: credentials.email }
+        });
+
+        if (!user || !user.password) {
+          return null;
+        }
+
+        const isPasswordValid = await compare(
+          credentials.password,
+          user.password
+        );
+
+        if (!isPasswordValid) {
+          return null;
+        }
+
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name
+        };
+      }
+    })
+  ],
+  session: {
+    strategy: "jwt"
+  },
+  pages: {
+    signIn: "/auth/signin",
+    error: "/auth/error",
+  },
+  callbacks: {
+    async session({ session, token }) {
+      if (session.user && token.sub) {
+        session.user.id = token.sub;
+      }
+      return session;
+    },
+  },
+});
+
+export { handler as GET, handler as POST };
+```
+
+## Future Improvements
+
+### Performance Optimizations
+
+1. **Implement Image Optimization**
+   - Use Next.js Image component for optimized images
+   - Set up proper image loading and caching strategies
+
+2. **React Server Components**
+   - Identify components that can be server components
+   - Implement data fetching patterns for server components
+
+3. **Caching Strategies**
+   - Implement SWR or React Query caching
+   - Set up server-side caching with Redis (optional)
+
+### Additional Features
+
+1. **Testing Framework**
+   - Set up Jest for unit testing
+   - Implement React Testing Library for component tests
+   - Configure Cypress for end-to-end testing
+
+2. **Internationalization**
+   - Implement i18n using next-intl or similar
+   - Set up language switching and locale detection
+
+3. **Analytics Integration**
+   - Add support for common analytics platforms
+   - Implement event tracking utilities
+
+4. **CI/CD Pipeline**
+   - Set up GitHub Actions for automated testing
+   - Configure deployment workflows for Vercel
+
+## Migration Checklist
+
+- [ ] Initialize Next.js 14+ project with TypeScript
+- [ ] Configure Tailwind CSS and shadcn/ui
+- [ ] Set up ESLint, Prettier, and code quality tools
+- [ ] Initialize Prisma with database schema
+- [ ] Migrate UI components from current project
+- [ ] Create App Router page structure
+- [ ] Implement API routes with Prisma integration
+- [ ] Set up authentication system
+- [ ] Create example pages and forms
+- [ ] Implement optional hybrid backend approach
+- [ ] Configure deployment settings for Vercel
+- [ ] Update documentation with usage examples
