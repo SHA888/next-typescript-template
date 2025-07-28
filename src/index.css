@@ -164,7 +164,7 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background font-sans text-foreground antialiased;
   }
 
   /* Typography Classes */
@@ -194,16 +194,16 @@
   /* Custom Component Classes */
   .btn-gradient-primary {
     background: var(--gradient-primary);
-    @apply text-primary-foreground border-0 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl;
+    @apply border-0 text-primary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl;
   }
 
   .btn-gradient-secondary {
     background: var(--gradient-secondary);
-    @apply text-secondary-foreground border-0 shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl;
+    @apply border-0 text-secondary-foreground shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl;
   }
 
   .card-glass {
-    @apply bg-card/80 border-border/50 border shadow-lg backdrop-blur-lg;
+    @apply border border-border/50 bg-card/80 shadow-lg backdrop-blur-lg;
   }
 
   .surface-gradient {

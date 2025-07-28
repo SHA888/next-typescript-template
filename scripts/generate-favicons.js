@@ -9,10 +9,10 @@ const sizes = [
 ];
 
 // Generate favicons
-sizes.forEach(size => {
+sizes.forEach((size) => {
   const filename = `favicon-${size.size}x${size.size}.${size.type}`;
   const outputPath = path.join(__dirname, '../public', filename);
-  
+
   // Generate a simple square favicon with a gradient
   const svg = `
     <svg width="${size.size}" height="${size.size}" viewBox="0 0 ${size.size} ${size.size}" xmlns="http://www.w3.org/2000/svg">

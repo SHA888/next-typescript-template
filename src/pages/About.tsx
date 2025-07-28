@@ -2,18 +2,7 @@ import { Layout } from '@/components/layout/Layout';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import {
-  Target,
-  Users,
-  Lightbulb,
-  Award,
-  Github,
-  Twitter,
-  Linkedin,
-  Mail,
-  Calendar,
-  MapPin,
-} from 'lucide-react';
+import { Target, Users, Lightbulb, Award, Github, Twitter, Linkedin, Mail } from 'lucide-react';
 
 const team = [
   {

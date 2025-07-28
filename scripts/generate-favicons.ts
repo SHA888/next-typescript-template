@@ -22,9 +22,7 @@ const createGradientImage = async (width: number, height: number) => {
     </svg>
   `);
 
-  return sharp(buffer)
-    .png()
-    .toBuffer();
+  return sharp(buffer).png().toBuffer();
 };
 
 async function main() {
