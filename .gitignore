@@ -49,6 +49,13 @@ logs
 .env.production.local
 .env
 
+# Cookie files
+*.cookies.txt
+cookies.txt
+auth_cookies.txt
+auth-cookies.txt
+test-cookies.txt
+
 # OS specific
 
 dev-debug.log
