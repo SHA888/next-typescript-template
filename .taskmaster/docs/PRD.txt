@@ -29,8 +29,9 @@ This PRD outlines the plan to upgrade the existing React SPA (built with Vite an
    - Husky and lint-staged for pre-commit hooks
 
 6. **Optional Hybrid Backend Approach**
-   - Next.js API routes for basic backend needs
-   - Support for separate Node.js/Express backend with Prisma
+   - Next.js API Routes (default)
+   - NestJS (recommended for complex applications)
+   - Documentation for extending to other frameworks
 
 # User Experience
 The upgraded template will serve developers who need:
@@ -65,12 +66,13 @@ The upgraded template will serve developers who need:
    - `/app/api/[resource]/route.ts` - RESTful API endpoints
    - Middleware for authentication and request validation
 
-2. **Optional Express Backend** (for hybrid approach)
+2. **Optional NestJS Backend** (for hybrid approach)
    - `/backend` - Separate backend project directory
-     - `/backend/src/routes` - Express routes
-     - `/backend/src/controllers` - Business logic
-     - `/backend/src/models` - Data models
-     - `/backend/src/middleware` - Express middleware
+     - `/backend/src/app.module.ts` - Root module
+     - `/backend/src/main.ts` - Application entry point
+     - `/backend/src/modules` - Feature modules
+     - `/backend/src/common` - Shared providers, filters, interceptors
+     - `/backend/src/config` - Configuration files
 
 ### Database Layer
 1. **Prisma ORM**
@@ -153,20 +155,23 @@ model User {
    - Create custom hooks for data operations
 
 ## Phase 3: Hybrid Backend Support
-1. **Express Backend Setup**
-   - Create Express server structure
-   - Set up middleware (CORS, error handling)
-   - Implement Prisma integration
+1. **NestJS Backend Setup**
+   - Initialize NestJS project with TypeScript
+   - Set up global pipes, filters, and interceptors
+   - Configure Prisma module and service
+   - Implement database connection and health checks
 
 2. **API Integration**
-   - Create shared types between Next.js and Express
-   - Implement API endpoints matching Next.js routes
-   - Set up authentication flow between services
+   - Create shared DTOs and interfaces between Next.js and NestJS
+   - Set up Swagger documentation with `@nestjs/swagger`
+   - Implement API versioning and response transformation
+   - Configure authentication using JWT and Passport
 
 3. **Deployment Configuration**
-   - Configure Vercel deployment for Next.js
-   - Set up Render deployment for Express backend
-   - Establish secure communication between services
+   - Configure Vercel deployment for Next.js frontend
+   - Set up deployment for NestJS backend (Docker/Kubernetes/PM2)
+   - Configure environment variables and secrets
+   - Set up CI/CD pipelines for both frontend and backend
 
 ## Phase 4: Documentation and Examples
 1. **Documentation**
