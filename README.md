@@ -34,11 +34,13 @@ cd next-typescript-template
 ### 2. Install Dependencies
 
 Using npm:
+
 ```bash
 npm install
 ```
 
 Or using yarn:
+
 ```bash
 yarn install
 ```
@@ -82,6 +84,7 @@ yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the app.
+
 ## Project Structure
 
 ```
@@ -167,7 +170,7 @@ async function getUsers() {
 
 export default async function Home() {
   const users: User[] = await getUsers();
-  
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold">Welcome to Next TypeScript Template</h1>
@@ -195,18 +198,20 @@ For complex backend logic (e.g., WebSockets, heavy computations), use a hybrid a
 #### Separate Backend Setup:
 
 ```
+
 backend/
 ├── src/
-│   ├── controllers/     # API logic (e.g., userController.ts)
-│   ├── routes/          # Express routes (e.g., userRoutes.ts)
-│   ├── types/           # Shared TypeScript types
-│   └── index.ts         # Entry point
+│ ├── controllers/ # API logic (e.g., userController.ts)
+│ ├── routes/ # Express routes (e.g., userRoutes.ts)
+│ ├── types/ # Shared TypeScript types
+│ └── index.ts # Entry point
 ├── prisma/
-│   └── schema.prisma    # Prisma schema
+│ └── schema.prisma # Prisma schema
 ├── package.json
 ├── tsconfig.json
 └── .env
-```
+
+````
 
 Use the same `schema.prisma` and `/lib/types.ts` for consistency.
 
@@ -225,7 +230,7 @@ export async function GET() {
   const users: User[] = await response.json();
   return NextResponse.json(users);
 }
-```
+````
 
 3. Backend route example (`/backend/src/routes/userRoutes.ts`):
 
@@ -246,10 +251,12 @@ export default router;
 ```
 
 #### Database Integration:
+
 - Connect the backend to the same database using Prisma
 - Share `schema.prisma` and type definitions
 
 #### Deployment:
+
 - Deploy Next.js to Vercel (see "Deployment" section)
 - Deploy the backend to Render:
   1. Push backend code to a Git repository
@@ -277,11 +284,13 @@ The template is modular, allowing swaps for Prisma, Tailwind CSS, shadcn/ui, or 
 **From Prisma to TypeORM or Drizzle:**
 
 #### Replace Prisma with TypeORM:
+
 1. Install TypeORM and a database driver (e.g., `pg` for PostgreSQL)
 2. Create TypeORM entities in `/src/entities`
 3. Set up a database connection in `/lib/db.ts`
 
 #### Or use Drizzle:
+
 1. Install Drizzle and a database driver
 2. Define schema in `/lib/db/schema.ts`
 3. Use Drizzle's query builder for type-safe queries
@@ -291,10 +300,12 @@ The template is modular, allowing swaps for Prisma, Tailwind CSS, shadcn/ui, or 
 **From Tailwind CSS to CSS Modules or Styled Components:**
 
 #### For CSS Modules:
+
 1. Rename `.css` files to `.module.css`
 2. Import styles directly in components
 
 #### For Styled Components:
+
 1. Install `styled-components` and `@types/styled-components`
 2. Create styled components in your React files
 
@@ -303,26 +314,31 @@ The template is modular, allowing swaps for Prisma, Tailwind CSS, shadcn/ui, or 
 **From shadcn/ui to MUI or Chakra UI:**
 
 #### For MUI:
+
 1. Install `@mui/material` and `@emotion/styled`
 2. Replace shadcn/ui components with MUI equivalents
 
 ### Swapping Styling (Continued)
 
 #### For Chakra UI:
+
 1. Install `@chakra-ui/react` and its dependencies
 2. Use Chakra's component library and theme system
 
 #### For Emotion:
+
 1. Install `@emotion/react` and `@emotion/styled`
 2. Usage is similar to Styled-Components
    ```bash
    npm install @emotion/react @emotion/styled
    ```
+
 ### Swapping Authentication
 
 **From NextAuth.js to Clerk or Supabase Auth:**
 
 #### For Clerk:
+
 1. Install required packages:
    ```bash
    npm install @clerk/nextjs
@@ -334,9 +350,10 @@ The template is modular, allowing swaps for Prisma, Tailwind CSS, shadcn/ui, or 
    ```
 3. Update `middleware.ts` for protected routes
 4. Use Clerk's hooks in your components:
+
    ```tsx
-   import { UserButton } from "@clerk/nextjs";
-   
+   import { UserButton } from '@clerk/nextjs';
+
    export default function Home() {
      return (
        <div>
@@ -348,6 +365,7 @@ The template is modular, allowing swaps for Prisma, Tailwind CSS, shadcn/ui, or 
    ```
 
 #### For Supabase Auth:
+
 1. Install required packages:
    ```bash
    npm install @supabase/supabase-js @supabase/auth-helpers-nextjs
@@ -358,40 +376,43 @@ The template is modular, allowing swaps for Prisma, Tailwind CSS, shadcn/ui, or 
    NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
    ```
 3. Create a Supabase client utility (`lib/supabase.ts`):
+
    ```typescript
    import { createClient } from '@supabase/supabase-js';
-   
+
    export const supabase = createClient(
      process.env.NEXT_PUBLIC_SUPABASE_URL!,
      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
    );
    ```
+
 4. Example authentication API route (`app/api/auth/login/route.ts`):
+
    ```typescript
    import { NextResponse } from 'next/server';
    import { supabase } from '@/lib/supabase';
    import { prisma } from '@/lib/prisma';
    import type { User } from '@/lib/types';
-   
+
    export async function POST(request: Request) {
      const { email, password } = await request.json();
      const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-     
+
      if (error) {
        return NextResponse.json({ error: error.message }, { status: 400 });
      }
-     
+
      // Create or update user in your database
      const user = await prisma.user.upsert({
        where: { id: data.user.id },
        update: { email, name: data.user.user_metadata?.name },
-       create: { 
-         id: data.user.id, 
-         email, 
-         name: data.user.user_metadata?.name || email.split('@')[0]
+       create: {
+         id: data.user.id,
+         email,
+         name: data.user.user_metadata?.name || email.split('@')[0],
        },
      });
-     
+
      return NextResponse.json(user);
    }
    ```
@@ -405,6 +426,7 @@ The template is modular, allowing swaps for Prisma, Tailwind CSS, shadcn/ui, or 
 NestJS is a progressive Node.js framework for building efficient, reliable and scalable server-side applications. Here's how to set it up as your backend:
 
 1. **Install NestJS CLI and create a new project**:
+
    ```bash
    npm install -g @nestjs/cli
    nest new backend
@@ -412,18 +434,21 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
    ```
 
 2. **Install required dependencies**:
+
    ```bash
    npm install @prisma/client @nestjs/config @nestjs/swagger class-validator class-transformer
    npm install -D prisma
    ```
 
 3. **Set up Prisma**:
+
    ```bash
    npx prisma init
    # Update the DATABASE_URL in .env to match your database
    ```
 
 4. **Create a Prisma service** (`src/prisma/prisma.service.ts`):
+
    ```typescript
    import { Injectable, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
    import { PrismaClient } from '@prisma/client';
@@ -441,6 +466,7 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
    ```
 
 5. **Create a Prisma module** (`src/prisma/prisma.module.ts`):
+
    ```typescript
    import { Global, Module } from '@nestjs/common';
    import { PrismaService } from './prisma.service';
@@ -454,6 +480,7 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
    ```
 
 6. **Create a users module** (`src/users/users.module.ts`):
+
    ```typescript
    import { Module } from '@nestjs/common';
    import { UsersController } from './users.controller';
@@ -470,6 +497,7 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
    ```
 
 7. **Create a users service** (`src/users/users.service.ts`):
+
    ```typescript
    import { Injectable } from '@nestjs/common';
    import { PrismaService } from '../prisma/prisma.service';
@@ -490,6 +518,7 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
    ```
 
 8. **Create a users controller** (`src/users/users.controller.ts`):
+
    ```typescript
    import { Controller, Get, Param } from '@nestjs/common';
    import { UsersService } from './users.service';
@@ -512,6 +541,7 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
    ```
 
 9. **Update the main app module** (`src/app.module.ts`):
+
    ```typescript
    import { Module } from '@nestjs/common';
    import { ConfigModule } from '@nestjs/config';
@@ -531,6 +561,7 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
    ```
 
 10. **Update the main.ts file** (`src/main.ts`):
+
     ```typescript
     import { NestFactory } from '@nestjs/core';
     import { AppModule } from './app.module';
@@ -539,13 +570,13 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
 
     async function bootstrap() {
       const app = await NestFactory.create(AppModule);
-      
+
       // Enable CORS for development
       app.enableCors();
-      
+
       // Global validation pipe
       app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
-      
+
       // Swagger documentation
       const config = new DocumentBuilder()
         .setTitle('NestJS API')
@@ -553,7 +584,7 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
         .setVersion('1.0')
         .addBearerAuth()
         .build();
-      
+
       const document = SwaggerModule.createDocument(app, config);
       SwaggerModule.setup('api/docs', app, document);
 
@@ -561,26 +592,29 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
       console.log(`Application is running on: http://localhost:3001`);
       console.log(`Swagger docs available at: http://localhost:3001/api/docs`);
     }
-    
+
     bootstrap();
     ```
 
 11. **Update your Next.js frontend** to point to the NestJS backend by setting the environment variable in `.env.local`:
+
     ```env
     NEXT_PUBLIC_API_URL=http://localhost:3001/api
     ```
 
 12. **Start the NestJS server**:
+
     ```bash
     # In development mode with hot-reload
     npm run start:dev
-    
+
     # Or for production
     npm run build
     npm run start:prod
     ```
 
 **Key Benefits of Using NestJS:**
+
 - Built-in dependency injection
 - Modular architecture
 - Excellent TypeScript support
@@ -591,30 +625,32 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
 **Note**: Make sure to configure CORS in your NestJS application to allow requests from your Next.js frontend domain in production.
 
 #### For Fastify:
+
 1. Install required packages:
    ```bash
    npm install fastify @fastify/cors @fastify/helmet
    ```
 2. Set up your Fastify server (`server/index.ts`):
+
    ```typescript
    import Fastify from 'fastify';
    import cors from '@fastify/cors';
    import helmet from '@fastify/helmet';
    import { PrismaClient } from '@prisma/client';
-   
+
    const prisma = new PrismaClient();
    const app = Fastify({ logger: true });
-   
+
    // Register plugins
    await app.register(cors, { origin: process.env.CLIENT_URL });
    await app.register(helmet);
-   
+
    // Example route
    app.get('/api/users', async (request, reply) => {
      const users = await prisma.user.findMany();
      return users;
    });
-   
+
    // Start server
    const start = async () => {
      try {
@@ -625,11 +661,12 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
        process.exit(1);
      }
    };
-   
+
    start();
    ```
 
 #### For NestJS:
+
 1. Install the NestJS CLI and create a new project:
    ```bash
    npm i -g @nestjs/cli
@@ -642,27 +679,28 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
    npm install -D prisma
    ```
 3. Set up your Prisma module and service:
+
    ```typescript
    // src/prisma/prisma.module.ts
    import { Module } from '@nestjs/common';
    import { PrismaService } from './prisma.service';
-   
+
    @Module({
      providers: [PrismaService],
      exports: [PrismaService],
    })
    export class PrismaModule {}
-   
+
    // src/prisma/prisma.service.ts
    import { INestApplication, Injectable, OnModuleInit } from '@nestjs/common';
    import { PrismaClient } from '@prisma/client';
-   
+
    @Injectable()
    export class PrismaService extends PrismaClient implements OnModuleInit {
      async onModuleInit() {
        await this.$connect();
      }
-     
+
      async enableShutdownHooks(app: INestApplication) {
        this.$on('beforeExit', async () => {
          await app.close();
@@ -670,54 +708,56 @@ NestJS is a progressive Node.js framework for building efficient, reliable and s
      }
    }
    ```
+
 4. Create a users module and controller:
+
    ```typescript
    // src/users/users.controller.ts
    import { Controller, Get } from '@nestjs/common';
    import { PrismaService } from '../prisma/prisma.service';
-   
+
    @Controller('users')
    export class UsersController {
      constructor(private prisma: PrismaService) {}
-     
+
      @Get()
      async getUsers() {
        return this.prisma.user.findMany();
      }
    }
-   
+
    // src/users/users.module.ts
    import { Module } from '@nestjs/common';
    import { UsersController } from './users.controller';
    import { PrismaModule } from '../prisma/prisma.module';
-   
+
    @Module({
      imports: [PrismaModule],
      controllers: [UsersController],
    })
    export class UsersModule {}
    ```
+
 5. Update your main app module:
+
    ```typescript
    // src/app.module.ts
    import { Module } from '@nestjs/common';
    import { ConfigModule } from '@nestjs/config';
    import { UsersModule } from './users/users.module';
    import { PrismaModule } from './prisma/prisma.module';
-   
+
    @Module({
-     imports: [
-       ConfigModule.forRoot(),
-       PrismaModule,
-       UsersModule,
-     ],
+     imports: [ConfigModule.forRoot(), PrismaModule, UsersModule],
    })
    export class AppModule {}
    ```
+
 6. Start the server:
    ```bash
    npm run start:dev
    ```
+
 ## Best Practices for Swappable Components
 
 When swapping components in this template, keep these best practices in mind:
@@ -788,6 +828,7 @@ This project was made possible thanks to:
 ## Resources
 
 ### Core Technologies
+
 - [Next.js Documentation](https://nextjs.org/docs)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [Prisma Documentation](https://www.prisma.io/docs/)
@@ -795,11 +836,13 @@ This project was made possible thanks to:
 - [shadcn/ui Documentation](https://ui.shadcn.com/docs)
 
 ### Deployment
+
 - [Vercel Deployment Guide](https://vercel.com/docs)
 - [Render Documentation](https://render.com/docs)
 - [Vercel Serverless Functions](https://vercel.com/docs/functions)
 
 ### Additional Resources
+
 - [React Documentation](https://react.dev/learn)
 - [Node.js Documentation](https://nodejs.org/en/docs/)
 - [Express Documentation](https://expressjs.com/)

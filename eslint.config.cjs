@@ -71,17 +71,14 @@ module.exports = [
       // TypeScript rules
       '@typescript-eslint/no-unused-vars': [
         'warn',
-        { 
-          argsIgnorePattern: '^_', 
+        {
+          argsIgnorePattern: '^_',
           varsIgnorePattern: '^_',
           caughtErrorsIgnorePattern: '^_',
         },
       ],
       '@typescript-eslint/no-explicit-any': 'warn',
-      '@typescript-eslint/no-empty-interface': [
-        'error',
-        { allowSingleExtends: true },
-      ],
+      '@typescript-eslint/no-empty-interface': ['error', { allowSingleExtends: true }],
       '@typescript-eslint/no-empty-object-type': 'off',
       '@typescript-eslint/no-var-requires': 'warn',
       // JavaScript rules
@@ -96,7 +93,7 @@ module.exports = [
       'no-console': ['warn', { allow: ['warn', 'error'] }],
     },
   },
-  
+
   // Configuration files
   {
     files: [
@@ -104,13 +101,9 @@ module.exports = [
       '**/*.config.{js,ts}',
       '**/.*rc.js',
       '**/setupTests.{js,ts}',
-      '**/jest.setup.{js,ts}'
+      '**/jest.setup.{js,ts}',
     ],
-    ignores: [
-      '**/node_modules/**',
-      '**/.next/**',
-      '**/dist/**',
-    ],
+    ignores: ['**/node_modules/**', '**/.next/**', '**/dist/**'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
@@ -136,16 +129,13 @@ module.exports = [
       'no-console': 'off',
     },
   },
-  
+
   // Test files
   {
-    files: [
-      '**/__tests__/**/*.{js,jsx,ts,tsx}',
-      '**/*.test.{js,jsx,ts,tsx}'
-    ],
+    files: ['**/__tests__/**/*.{js,jsx,ts,tsx}', '**/*.test.{js,jsx,ts,tsx}'],
     plugins: {
       '@typescript-eslint': typescriptEslint,
-      'jest': jestPlugin,
+      jest: jestPlugin,
     },
     languageOptions: {
       globals: commonGlobals,
@@ -175,7 +165,7 @@ module.exports = [
       'jest/valid-expect': 'error',
     },
   },
-  
+
   // Ignore patterns
   {
     ignores: [

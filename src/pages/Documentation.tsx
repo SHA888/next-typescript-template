@@ -1,79 +1,80 @@
-import { Layout } from "@/components/layout/Layout";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { BookOpen, Code, Palette, Settings, FileText, ExternalLink } from "lucide-react";
+import { Layout } from '@/components/layout/Layout';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { BookOpen, Code, Palette, Settings, FileText, ExternalLink } from 'lucide-react';
 
 const quickStartSteps = [
   {
-    step: "1",
-    title: "Clone the Template", 
-    description: "Get started by cloning the repository to your local machine.",
-    code: "git clone https://github.com/your-org/react-template.git\ncd react-template"
+    step: '1',
+    title: 'Clone the Template',
+    description: 'Get started by cloning the repository to your local machine.',
+    code: 'git clone https://github.com/your-org/react-template.git\ncd react-template',
   },
   {
-    step: "2",
-    title: "Install Dependencies",
-    description: "Install all required packages using your preferred package manager.",
-    code: "npm install\n# or\nyarn install\n# or\npnpm install"
+    step: '2',
+    title: 'Install Dependencies',
+    description: 'Install all required packages using your preferred package manager.',
+    code: 'npm install\n# or\nyarn install\n# or\npnpm install',
   },
   {
-    step: "3",
-    title: "Start Development",
-    description: "Launch the development server and start building your application.",
-    code: "npm run dev\n# Your app will be available at http://localhost:5173"
+    step: '3',
+    title: 'Start Development',
+    description: 'Launch the development server and start building your application.',
+    code: 'npm run dev\n# Your app will be available at http://localhost:5173',
   },
   {
-    step: "4",
-    title: "Customize & Build",
-    description: "Customize the design system, add your components, and build something amazing!",
-    code: "# Edit src/index.css for design tokens\n# Create components in src/components\n# Add pages in src/pages"
-  }
+    step: '4',
+    title: 'Customize & Build',
+    description: 'Customize the design system, add your components, and build something amazing!',
+    code: '# Edit src/index.css for design tokens\n# Create components in src/components\n# Add pages in src/pages',
+  },
 ];
 
 const docSections = [
   {
-    title: "Getting Started",
+    title: 'Getting Started',
     icon: BookOpen,
-    description: "Learn the basics and set up your development environment",
-    articles: ["Installation", "Project Structure", "Development Workflow", "Configuration"]
+    description: 'Learn the basics and set up your development environment',
+    articles: ['Installation', 'Project Structure', 'Development Workflow', 'Configuration'],
   },
   {
-    title: "Components",
+    title: 'Components',
     icon: Code,
-    description: "Comprehensive guide to all available components and their usage",
-    articles: ["Button Variants", "Form Components", "Layout Components", "Data Display"]
+    description: 'Comprehensive guide to all available components and their usage',
+    articles: ['Button Variants', 'Form Components', 'Layout Components', 'Data Display'],
   },
   {
-    title: "Design System",
+    title: 'Design System',
     icon: Palette,
-    description: "Understanding and customizing the design tokens and themes",
-    articles: ["Color Tokens", "Typography", "Spacing", "Animations"]
+    description: 'Understanding and customizing the design tokens and themes',
+    articles: ['Color Tokens', 'Typography', 'Spacing', 'Animations'],
   },
   {
-    title: "Advanced",
+    title: 'Advanced',
     icon: Settings,
-    description: "Advanced topics for building production-ready applications",
-    articles: ["Performance", "Testing", "Deployment", "Best Practices"]
-  }
+    description: 'Advanced topics for building production-ready applications',
+    articles: ['Performance', 'Testing', 'Deployment', 'Best Practices'],
+  },
 ];
 
 export default function Documentation() {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="py-20 md:py-32 surface-gradient">
+      <section className="surface-gradient py-20 md:py-32">
         <div className="container text-center">
           <Badge variant="secondary" className="mb-6">
             <FileText className="mr-1 h-3 w-3" />
             Documentation
           </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 text-gradient-hero">
+          <h1 className="text-gradient-hero mb-6 text-4xl font-bold md:text-6xl">
             Get Started Fast
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto text-balance">
-            Comprehensive documentation to help you build amazing applications with our React TypeScript template.
+          <p className="text-muted-foreground mx-auto max-w-3xl text-lg text-balance md:text-xl">
+            Comprehensive documentation to help you build amazing applications with our React
+            TypeScript template.
           </p>
         </div>
       </section>
@@ -81,21 +82,21 @@ export default function Documentation() {
       {/* Quick Start */}
       <section className="py-20">
         <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient-primary">
+          <div className="mb-16 text-center">
+            <h2 className="text-gradient-primary mb-4 text-3xl font-bold md:text-4xl">
               Quick Start Guide
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
               Get up and running in minutes with these simple steps.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+          <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2">
             {quickStartSteps.map((step) => (
               <Card key={step.step} className="card-glass">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
-                    <div className="h-8 w-8 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-sm font-bold text-primary-foreground">
+                    <div className="from-primary to-secondary text-primary-foreground flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br text-sm font-bold">
                       {step.step}
                     </div>
                     <CardTitle className="text-lg">{step.title}</CardTitle>
@@ -103,7 +104,7 @@ export default function Documentation() {
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground mb-4">{step.description}</p>
-                  <div className="bg-muted/50 rounded-lg p-4 font-mono text-sm overflow-x-auto">
+                  <div className="bg-muted/50 overflow-x-auto rounded-lg p-4 font-mono text-sm">
                     <pre className="text-foreground whitespace-pre-wrap">{step.code}</pre>
                   </div>
                 </CardContent>
@@ -114,34 +115,35 @@ export default function Documentation() {
       </section>
 
       {/* Documentation Sections */}
-      <section className="py-20 bg-muted/20">
+      <section className="bg-muted/20 py-20">
         <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Complete Documentation
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl">Complete Documentation</h2>
+            <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
               Explore detailed guides for every aspect of the template.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {docSections.map((section) => (
-              <Card key={section.title} className="card-glass hover:shadow-lg transition-all duration-300">
+              <Card
+                key={section.title}
+                className="card-glass transition-all duration-300 hover:shadow-lg"
+              >
                 <CardHeader>
-                  <div className="flex items-center space-x-3 mb-2">
-                    <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                      <section.icon className="h-5 w-5 text-primary-foreground" />
+                  <div className="mb-2 flex items-center space-x-3">
+                    <div className="from-primary to-secondary flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br">
+                      <section.icon className="text-primary-foreground h-5 w-5" />
                     </div>
                     <CardTitle className="text-xl">{section.title}</CardTitle>
                   </div>
                   <p className="text-muted-foreground">{section.description}</p>
                 </CardHeader>
                 <CardContent>
-                  <ul className="space-y-2 mb-4">
+                  <ul className="mb-4 space-y-2">
                     {section.articles.map((article) => (
                       <li key={article} className="flex items-center space-x-2 text-sm">
-                        <ExternalLink className="h-3 w-3 text-muted-foreground" />
+                        <ExternalLink className="text-muted-foreground h-3 w-3" />
                         <span className="text-muted-foreground hover:text-foreground cursor-pointer">
                           {article}
                         </span>
@@ -161,29 +163,29 @@ export default function Documentation() {
       {/* Code Examples */}
       <section className="py-20">
         <div className="container">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient-secondary">
+          <div className="mb-16 text-center">
+            <h2 className="text-gradient-secondary mb-4 text-3xl font-bold md:text-4xl">
               Code Examples
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
               See the template in action with practical examples.
             </p>
           </div>
 
-          <Tabs defaultValue="component" className="max-w-4xl mx-auto">
+          <Tabs defaultValue="component" className="mx-auto max-w-4xl">
             <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="component">Component</TabsTrigger>
               <TabsTrigger value="styling">Styling</TabsTrigger>
               <TabsTrigger value="typescript">TypeScript</TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="component" className="mt-6">
               <Card>
                 <CardHeader>
                   <CardTitle>Creating a Custom Component</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="bg-muted/50 rounded-lg p-4 font-mono text-sm overflow-x-auto">
+                  <div className="bg-muted/50 overflow-x-auto rounded-lg p-4 font-mono text-sm">
                     <pre className="text-foreground">{`import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -205,14 +207,14 @@ export function MyComponent() {
                 </CardContent>
               </Card>
             </TabsContent>
-            
+
             <TabsContent value="styling" className="mt-6">
               <Card>
                 <CardHeader>
                   <CardTitle>Using Design System Tokens</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="bg-muted/50 rounded-lg p-4 font-mono text-sm overflow-x-auto">
+                  <div className="bg-muted/50 overflow-x-auto rounded-lg p-4 font-mono text-sm">
                     <pre className="text-foreground">{`/* Using semantic tokens in CSS */
 .my-component {
   background: hsl(var(--primary));
@@ -230,14 +232,14 @@ export function MyComponent() {
                 </CardContent>
               </Card>
             </TabsContent>
-            
+
             <TabsContent value="typescript" className="mt-6">
               <Card>
                 <CardHeader>
                   <CardTitle>TypeScript Integration</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="bg-muted/50 rounded-lg p-4 font-mono text-sm overflow-x-auto">
+                  <div className="bg-muted/50 overflow-x-auto rounded-lg p-4 font-mono text-sm">
                     <pre className="text-foreground">{`interface UserProps {
   name: string;
   email: string;

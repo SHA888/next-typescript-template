@@ -10,11 +10,7 @@ export const metadata: Metadata = {
   description: 'A modern Next.js template with TypeScript, Tailwind CSS, and shadcn/ui',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
