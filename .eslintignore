@@ -8,6 +8,9 @@ package-lock.json
 **/node_modules
 **/.yarn
 **/dist
+
+# Test and utility scripts
+scripts/*
 **/build
 **/.cache
 **/.next

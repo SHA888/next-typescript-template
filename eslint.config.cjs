@@ -48,6 +48,26 @@ const commonGlobals = {
 module.exports = [
   // Base configuration
   js.configs.recommended,
+  
+  // Override for test scripts
+  {
+    files: ['scripts/**/*.js', 'scripts/**/*.ts'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...commonGlobals,
+        // Add any additional globals needed for test scripts
+      },
+      parserOptions: {
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+      },
+    },
+    rules: {
+      'no-console': 'off', // Allow console.log in test scripts
+    },
+  },
   // TypeScript and JavaScript files for the application
   {
     files: ['src/**/*.{js,jsx,ts,tsx}'],

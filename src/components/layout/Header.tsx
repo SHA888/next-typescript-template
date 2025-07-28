@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { useState } from 'react';
 import { Menu, X, Github, Star } from 'lucide-react';
@@ -12,6 +12,7 @@ interface HeaderProps {
 
 const navigation = [
   { name: 'Home', href: '/' },
+  { name: 'Users', href: '/users' },
   { name: 'Features', href: '/features' },
   { name: 'Documentation', href: '/docs' },
   { name: 'Examples', href: '/examples' },
@@ -24,15 +25,15 @@ export function Header({ className }: HeaderProps) {
   return (
     <header
       className={cn(
-        'bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur',
+        'sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60',
         className
       )}
     >
       <div className="container flex h-16 items-center justify-between">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <div className="from-primary to-secondary flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br">
-            <span className="text-primary-foreground text-sm font-bold">RT</span>
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary">
+            <span className="text-sm font-bold text-primary-foreground">RT</span>
           </div>
           <span className="text-gradient-primary text-xl font-bold">React Template</span>
         </div>
@@ -43,7 +44,7 @@ export function Header({ className }: HeaderProps) {
             <a
               key={item.name}
               href={item.href}
-              className="hover:text-primary text-muted-foreground hover:text-foreground transition-colors"
+              className="text-muted-foreground transition-colors hover:text-foreground hover:text-primary"
             >
               {item.name}
             </a>
@@ -70,11 +71,7 @@ export function Header({ className }: HeaderProps) {
         {/* Mobile Menu Button */}
         <div className="flex items-center space-x-2 md:hidden">
           <ThemeToggle />
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
+          <Button variant="ghost" size="icon" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             <span className="sr-only">Toggle menu</span>
           </Button>
@@ -83,14 +80,14 @@ export function Header({ className }: HeaderProps) {
 
       {/* Mobile Navigation */}
       {isMenuOpen && (
-        <div className="bg-background border-t md:hidden">
+        <div className="border-t bg-background md:hidden">
           <div className="container space-y-4 py-4">
             <nav className="flex flex-col space-y-3">
               {navigation.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="hover:text-primary text-muted-foreground hover:text-foreground text-sm font-medium transition-colors"
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground hover:text-primary"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
