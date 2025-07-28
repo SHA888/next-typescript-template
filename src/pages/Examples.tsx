@@ -89,12 +89,12 @@ const componentExamples = [
         <CardHeader className="pb-2">
           <div className="flex items-center justify-between">
             <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <TrendingUp className="text-success h-4 w-4" />
+            <TrendingUp className="h-4 w-4 text-success" />
           </div>
         </CardHeader>
         <CardContent>
           <div className="text-gradient-primary text-2xl font-bold">$45,231.89</div>
-          <p className="text-muted-foreground text-sm">+20.1% from last month</p>
+          <p className="text-sm text-muted-foreground">+20.1% from last month</p>
           <div className="mt-4">
             <Progress value={68} className="h-2" />
           </div>
@@ -108,17 +108,17 @@ const componentExamples = [
       <Card className="card-glass max-w-sm">
         <CardHeader>
           <div className="flex items-center space-x-2">
-            <div className="from-primary to-secondary flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br">
-              <ShoppingCart className="text-primary-foreground h-4 w-4" />
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary">
+              <ShoppingCart className="h-4 w-4 text-primary-foreground" />
             </div>
             <div>
               <CardTitle className="text-sm">New Order</CardTitle>
-              <p className="text-muted-foreground text-xs">Order #1234</p>
+              <p className="text-xs text-muted-foreground">Order #1234</p>
             </div>
           </div>
         </CardHeader>
         <CardContent>
-          <p className="text-muted-foreground mb-4 text-sm">
+          <p className="mb-4 text-sm text-muted-foreground">
             Customer placed a new order for $299.99
           </p>
           <div className="flex space-x-2">
@@ -148,7 +148,7 @@ export default function Examples() {
           <h1 className="text-gradient-hero mb-6 text-4xl font-bold md:text-6xl">
             See It In Action
           </h1>
-          <p className="text-muted-foreground mx-auto max-w-3xl text-lg text-balance md:text-xl">
+          <p className="mx-auto max-w-3xl text-balance text-lg text-muted-foreground md:text-xl">
             Explore real-world examples and interactive components built with our React TypeScript
             template.
           </p>
@@ -162,7 +162,7 @@ export default function Examples() {
             <h2 className="text-gradient-primary mb-4 text-3xl font-bold md:text-4xl">
               Component Showcase
             </h2>
-            <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               Interactive examples of components you can build with the template.
             </p>
           </div>
@@ -191,17 +191,17 @@ export default function Examples() {
                     key={project.title}
                     className="card-glass group overflow-hidden transition-all duration-300 hover:shadow-xl"
                   >
-                    <div className="from-primary/20 to-secondary/20 flex aspect-video items-center justify-center bg-gradient-to-br">
+                    <div className="flex aspect-video items-center justify-center bg-gradient-to-br from-primary/20 to-secondary/20">
                       <div className="text-center">
-                        <Code className="text-primary mx-auto mb-2 h-12 w-12" />
-                        <p className="text-muted-foreground text-sm">Preview Image</p>
+                        <Code className="mx-auto mb-2 h-12 w-12 text-primary" />
+                        <p className="text-sm text-muted-foreground">Preview Image</p>
                       </div>
                     </div>
                     <CardHeader>
                       <div className="flex items-start justify-between">
                         <div>
                           <CardTitle className="text-lg">{project.title}</CardTitle>
-                          <p className="text-muted-foreground mt-1 text-sm">
+                          <p className="mt-1 text-sm text-muted-foreground">
                             {project.description}
                           </p>
                         </div>
@@ -219,9 +219,9 @@ export default function Examples() {
                         {project.features.map((feature) => (
                           <li
                             key={feature}
-                            className="text-muted-foreground flex items-center text-sm"
+                            className="flex items-center text-sm text-muted-foreground"
                           >
-                            <Star className="text-primary mr-2 h-3 w-3" />
+                            <Star className="mr-2 h-3 w-3 text-primary" />
                             {feature}
                           </li>
                         ))}
@@ -253,13 +253,13 @@ export default function Examples() {
         <div className="container">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-3xl font-bold md:text-4xl">Interactive Demo</h2>
-            <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               Try out the template's features with this interactive dashboard example.
             </p>
           </div>
 
           <Card className="card-glass mx-auto max-w-4xl overflow-hidden">
-            <CardHeader className="from-primary/10 to-secondary/10 bg-gradient-to-r">
+            <CardHeader className="bg-gradient-to-r from-primary/10 to-secondary/10">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg">Analytics Dashboard</CardTitle>
                 <div className="flex items-center space-x-2">
@@ -274,21 +274,21 @@ export default function Examples() {
               <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-3">
                 <div className="text-center">
                   <div className="text-gradient-primary text-2xl font-bold">12,345</div>
-                  <div className="text-muted-foreground flex items-center justify-center text-sm">
+                  <div className="flex items-center justify-center text-sm text-muted-foreground">
                     <Users className="mr-1 h-3 w-3" />
                     Total Users
                   </div>
                 </div>
                 <div className="text-center">
                   <div className="text-gradient-secondary text-2xl font-bold">$98,765</div>
-                  <div className="text-muted-foreground flex items-center justify-center text-sm">
+                  <div className="flex items-center justify-center text-sm text-muted-foreground">
                     <TrendingUp className="mr-1 h-3 w-3" />
                     Revenue
                   </div>
                 </div>
                 <div className="text-center">
                   <div className="text-gradient-primary text-2xl font-bold">89.2%</div>
-                  <div className="text-muted-foreground flex items-center justify-center text-sm">
+                  <div className="flex items-center justify-center text-sm text-muted-foreground">
                     <Star className="mr-1 h-3 w-3" />
                     Satisfaction
                   </div>

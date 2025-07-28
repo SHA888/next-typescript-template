@@ -47,6 +47,31 @@ const commonGlobals = {
 
 module.exports = [
   // Base configuration
+  {
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...commonGlobals,
+      },
+      parser: typescriptParser,
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        project: './tsconfig.json',
+      },
+    },
+    plugins: {
+      '@typescript-eslint': typescriptEslint,
+      'jest': jestPlugin,
+    },
+    rules: {
+      // Add your custom rules here
+    },
+  },
   js.configs.recommended,
   
   // Override for test scripts

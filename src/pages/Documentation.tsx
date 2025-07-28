@@ -72,7 +72,7 @@ export default function Documentation() {
           <h1 className="text-gradient-hero mb-6 text-4xl font-bold md:text-6xl">
             Get Started Fast
           </h1>
-          <p className="text-muted-foreground mx-auto max-w-3xl text-lg text-balance md:text-xl">
+          <p className="mx-auto max-w-3xl text-balance text-lg text-muted-foreground md:text-xl">
             Comprehensive documentation to help you build amazing applications with our React
             TypeScript template.
           </p>
@@ -86,7 +86,7 @@ export default function Documentation() {
             <h2 className="text-gradient-primary mb-4 text-3xl font-bold md:text-4xl">
               Quick Start Guide
             </h2>
-            <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               Get up and running in minutes with these simple steps.
             </p>
           </div>
@@ -96,16 +96,16 @@ export default function Documentation() {
               <Card key={step.step} className="card-glass">
                 <CardHeader>
                   <div className="flex items-center space-x-3">
-                    <div className="from-primary to-secondary text-primary-foreground flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br text-sm font-bold">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-primary to-secondary text-sm font-bold text-primary-foreground">
                       {step.step}
                     </div>
                     <CardTitle className="text-lg">{step.title}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground mb-4">{step.description}</p>
-                  <div className="bg-muted/50 overflow-x-auto rounded-lg p-4 font-mono text-sm">
-                    <pre className="text-foreground whitespace-pre-wrap">{step.code}</pre>
+                  <p className="mb-4 text-muted-foreground">{step.description}</p>
+                  <div className="overflow-x-auto rounded-lg bg-muted/50 p-4 font-mono text-sm">
+                    <pre className="whitespace-pre-wrap text-foreground">{step.code}</pre>
                   </div>
                 </CardContent>
               </Card>
@@ -119,7 +119,7 @@ export default function Documentation() {
         <div className="container">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-3xl font-bold md:text-4xl">Complete Documentation</h2>
-            <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               Explore detailed guides for every aspect of the template.
             </p>
           </div>
@@ -132,8 +132,8 @@ export default function Documentation() {
               >
                 <CardHeader>
                   <div className="mb-2 flex items-center space-x-3">
-                    <div className="from-primary to-secondary flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br">
-                      <section.icon className="text-primary-foreground h-5 w-5" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary">
+                      <section.icon className="h-5 w-5 text-primary-foreground" />
                     </div>
                     <CardTitle className="text-xl">{section.title}</CardTitle>
                   </div>
@@ -143,8 +143,8 @@ export default function Documentation() {
                   <ul className="mb-4 space-y-2">
                     {section.articles.map((article) => (
                       <li key={article} className="flex items-center space-x-2 text-sm">
-                        <ExternalLink className="text-muted-foreground h-3 w-3" />
-                        <span className="text-muted-foreground hover:text-foreground cursor-pointer">
+                        <ExternalLink className="h-3 w-3 text-muted-foreground" />
+                        <span className="cursor-pointer text-muted-foreground hover:text-foreground">
                           {article}
                         </span>
                       </li>
@@ -167,7 +167,7 @@ export default function Documentation() {
             <h2 className="text-gradient-secondary mb-4 text-3xl font-bold md:text-4xl">
               Code Examples
             </h2>
-            <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               See the template in action with practical examples.
             </p>
           </div>
@@ -185,7 +185,7 @@ export default function Documentation() {
                   <CardTitle>Creating a Custom Component</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="bg-muted/50 overflow-x-auto rounded-lg p-4 font-mono text-sm">
+                  <div className="overflow-x-auto rounded-lg bg-muted/50 p-4 font-mono text-sm">
                     <pre className="text-foreground">{`import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
@@ -214,7 +214,7 @@ export function MyComponent() {
                   <CardTitle>Using Design System Tokens</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="bg-muted/50 overflow-x-auto rounded-lg p-4 font-mono text-sm">
+                  <div className="overflow-x-auto rounded-lg bg-muted/50 p-4 font-mono text-sm">
                     <pre className="text-foreground">{`/* Using semantic tokens in CSS */
 .my-component {
   background: hsl(var(--primary));
@@ -239,7 +239,7 @@ export function MyComponent() {
                   <CardTitle>TypeScript Integration</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="bg-muted/50 overflow-x-auto rounded-lg p-4 font-mono text-sm">
+                  <div className="overflow-x-auto rounded-lg bg-muted/50 p-4 font-mono text-sm">
                     <pre className="text-foreground">{`interface UserProps {
   name: string;
   email: string;

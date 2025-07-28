@@ -98,7 +98,7 @@ export default function About() {
           <h1 className="text-gradient-hero mb-6 text-4xl font-bold md:text-6xl">
             Built by Developers, <span className="text-gradient-secondary">for Developers</span>
           </h1>
-          <p className="text-muted-foreground mx-auto max-w-3xl text-lg text-balance md:text-xl">
+          <p className="mx-auto max-w-3xl text-balance text-lg text-muted-foreground md:text-xl">
             We're passionate about creating tools that make web development faster, more enjoyable,
             and more productive for teams of all sizes.
           </p>
@@ -112,7 +112,7 @@ export default function About() {
             <h2 className="text-gradient-primary mb-6 text-3xl font-bold md:text-4xl">
               Our Mission
             </h2>
-            <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
+            <p className="mb-8 text-lg leading-relaxed text-muted-foreground">
               To democratize modern web development by providing a comprehensive, well-documented
               template that embodies industry best practices and enables developers to focus on
               building great user experiences rather than boilerplate setup.
@@ -121,7 +121,7 @@ export default function About() {
               {stats.map((stat) => (
                 <div key={stat.label} className="text-center">
                   <div className="text-gradient-primary mb-2 text-3xl font-bold">{stat.value}</div>
-                  <div className="text-muted-foreground text-sm">{stat.label}</div>
+                  <div className="text-sm text-muted-foreground">{stat.label}</div>
                 </div>
               ))}
             </div>
@@ -134,7 +134,7 @@ export default function About() {
         <div className="container">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-3xl font-bold md:text-4xl">Our Values</h2>
-            <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               The principles that guide our work and shape our decisions.
             </p>
           </div>
@@ -143,13 +143,13 @@ export default function About() {
             {values.map((value) => (
               <Card key={value.title} className="card-glass text-center">
                 <CardHeader>
-                  <div className="from-primary to-secondary mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br">
-                    <value.icon className="text-primary-foreground h-6 w-6" />
+                  <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary">
+                    <value.icon className="h-6 w-6 text-primary-foreground" />
                   </div>
                   <CardTitle className="text-xl">{value.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">{value.description}</p>
+                  <p className="leading-relaxed text-muted-foreground">{value.description}</p>
                 </CardContent>
               </Card>
             ))}
@@ -164,7 +164,7 @@ export default function About() {
             <h2 className="text-gradient-secondary mb-4 text-3xl font-bold md:text-4xl">
               Meet the Team
             </h2>
-            <p className="text-muted-foreground mx-auto max-w-2xl text-lg">
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               The passionate individuals behind the React TypeScript Template.
             </p>
           </div>
@@ -176,14 +176,14 @@ export default function About() {
                 className="card-glass group text-center transition-all duration-300 hover:shadow-lg"
               >
                 <CardHeader>
-                  <div className="from-primary/20 to-secondary/20 mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br transition-transform duration-300 group-hover:scale-110">
-                    <Users className="text-primary h-8 w-8" />
+                  <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 transition-transform duration-300 group-hover:scale-110">
+                    <Users className="h-8 w-8 text-primary" />
                   </div>
                   <CardTitle className="text-xl">{member.name}</CardTitle>
-                  <p className="text-primary font-medium">{member.role}</p>
+                  <p className="font-medium text-primary">{member.role}</p>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">{member.bio}</p>
+                  <p className="mb-6 leading-relaxed text-muted-foreground">{member.bio}</p>
                   <div className="flex justify-center space-x-2">
                     <Button size="sm" variant="ghost" asChild>
                       <a href={member.social.github}>
@@ -213,32 +213,32 @@ export default function About() {
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="mb-6 text-3xl font-bold md:text-4xl">Get In Touch</h2>
-            <p className="text-muted-foreground mb-8 text-lg">
+            <p className="mb-8 text-lg text-muted-foreground">
               Have questions, suggestions, or want to contribute? We'd love to hear from you!
             </p>
 
             <div className="mb-8 grid grid-cols-1 gap-6 md:grid-cols-3">
               <Card className="card-glass">
                 <CardContent className="p-6 text-center">
-                  <Mail className="text-primary mx-auto mb-3 h-8 w-8" />
+                  <Mail className="mx-auto mb-3 h-8 w-8 text-primary" />
                   <h3 className="mb-2 font-semibold">Email</h3>
-                  <p className="text-muted-foreground text-sm">hello@reacttemplate.dev</p>
+                  <p className="text-sm text-muted-foreground">hello@reacttemplate.dev</p>
                 </CardContent>
               </Card>
 
               <Card className="card-glass">
                 <CardContent className="p-6 text-center">
-                  <Github className="text-primary mx-auto mb-3 h-8 w-8" />
+                  <Github className="mx-auto mb-3 h-8 w-8 text-primary" />
                   <h3 className="mb-2 font-semibold">GitHub</h3>
-                  <p className="text-muted-foreground text-sm">Open source contributions</p>
+                  <p className="text-sm text-muted-foreground">Open source contributions</p>
                 </CardContent>
               </Card>
 
               <Card className="card-glass">
                 <CardContent className="p-6 text-center">
-                  <Users className="text-primary mx-auto mb-3 h-8 w-8" />
+                  <Users className="mx-auto mb-3 h-8 w-8 text-primary" />
                   <h3 className="mb-2 font-semibold">Community</h3>
-                  <p className="text-muted-foreground text-sm">Join our Discord server</p>
+                  <p className="text-sm text-muted-foreground">Join our Discord server</p>
                 </CardContent>
               </Card>
             </div>

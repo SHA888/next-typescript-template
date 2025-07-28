@@ -11,7 +11,7 @@ export function HeroSection() {
       {/* Grid pattern overlay */}
       <div className="bg-grid-pattern absolute inset-0 opacity-5" />
 
-      <div className="relative z-10 container">
+      <div className="container relative z-10">
         <div className="mx-auto max-w-4xl text-center">
           {/* Badge */}
           <div className="animate-fade-in mb-6 inline-flex items-center space-x-2">
@@ -22,12 +22,12 @@ export function HeroSection() {
           </div>
 
           {/* Main heading */}
-          <h1 className="animate-slide-up mb-6 text-4xl font-bold text-balance md:text-6xl lg:text-7xl">
+          <h1 className="animate-slide-up mb-6 text-balance text-4xl font-bold md:text-6xl lg:text-7xl">
             Build Amazing Apps with <span className="text-gradient-hero">TypeScript & React</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-muted-foreground animate-slide-up mx-auto mb-8 max-w-2xl text-lg text-balance md:text-xl">
+          <p className="animate-slide-up mx-auto mb-8 max-w-2xl text-balance text-lg text-muted-foreground md:text-xl">
             A comprehensive, production-ready template featuring modern design system, type safety,
             and developer experience optimizations for rapid development.
           </p>
@@ -52,18 +52,18 @@ export function HeroSection() {
           <div className="animate-fade-in mx-auto grid max-w-2xl grid-cols-1 gap-8 text-center sm:grid-cols-3">
             <div>
               <div className="text-gradient-primary text-2xl font-bold md:text-3xl">100%</div>
-              <div className="text-muted-foreground text-sm">Type Safe</div>
+              <div className="text-sm text-muted-foreground">Type Safe</div>
             </div>
             <div>
               <div className="text-gradient-secondary text-2xl font-bold md:text-3xl">50+</div>
-              <div className="text-muted-foreground text-sm">Components</div>
+              <div className="text-sm text-muted-foreground">Components</div>
             </div>
             <div>
               <div className="text-gradient-primary text-2xl font-bold md:text-3xl">
                 <Star className="mr-1 inline h-6 w-6" />
                 5.0
               </div>
-              <div className="text-muted-foreground text-sm">Developer Rating</div>
+              <div className="text-sm text-muted-foreground">Developer Rating</div>
             </div>
           </div>
         </div>

@@ -14,9 +14,7 @@ type PrismaClientWithExtensions = ReturnType<typeof createPrismaClient>;
 
 function createPrismaClient() {
   const prisma = new PrismaClient({
-    log: process.env.NODE_ENV === 'development' 
-      ? ['query', 'error', 'warn'] 
-      : ['error'],
+    log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
   });
 
   // Add middleware for logging slow queries
@@ -25,23 +23,23 @@ function createPrismaClient() {
     const result = await next(params);
     const after = Date.now();
     const queryTime = after - before;
-    
-    if (queryTime > 2000) { // Log slow queries (> 2s)
+
+    if (queryTime > 2000) {
+      // Log slow queries (> 2s)
       console.warn(`[PRISMA] Slow query (${queryTime}ms):`, {
         model: params.model,
         action: params.action,
         queryTime: `${queryTime}ms`,
       });
     }
-    
+
     return result;
   });
 
   return prisma;
 }
 
-export const prisma: PrismaClientWithExtensions =
-  global.prisma || createPrismaClient();
+export const prisma: PrismaClientWithExtensions = global.prisma || createPrismaClient();
 
 if (process.env.NODE_ENV !== 'production') {
   global.prisma = prisma;

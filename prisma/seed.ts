@@ -26,10 +26,10 @@ async function main() {
     // Clear existing data if not in production
     if (process.env.NODE_ENV !== 'production') {
       console.log('🧹 Clearing existing data...');
-      
+
       // Disable foreign key checks temporarily
       await prisma.$executeRaw`SET session_replication_role = 'replica'`;
-      
+
       // Get all tables and truncate them
       const tables = await prisma.$queryRaw<Array<{ tablename: string }>>`
         SELECT tablename 
@@ -41,7 +41,7 @@ async function main() {
       for (const { tablename } of tables) {
         await prisma.$executeRawUnsafe(`TRUNCATE TABLE "${tablename}" CASCADE;`);
       }
-      
+
       // Re-enable foreign key checks
       await prisma.$executeRaw`SET session_replication_role = 'origin'`;
     }
@@ -50,7 +50,7 @@ async function main() {
     const users = [];
     for (let i = 0; i < NUM_TEST_USERS; i++) {
       const email = i === 0 ? 'test@example.com' : faker.internet.email();
-      
+
       // Create user
       const user = await prisma.user.create({
         data: {
@@ -61,7 +61,7 @@ async function main() {
           password: faker.internet.password(),
         },
       });
-      
+
       // Create associated account
       await prisma.account.create({
         data: {
@@ -78,7 +78,7 @@ async function main() {
           sessionState: faker.string.alphanumeric(20),
         },
       });
-      
+
       // Create session
       await prisma.session.create({
         data: {
@@ -87,7 +87,7 @@ async function main() {
           expires: randomDate(new Date(), new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)), // 30 days from now
         },
       });
-      
+
       // Create verification token for some users
       if (Math.random() > 0.5) {
         await prisma.verificationToken.create({
@@ -98,7 +98,7 @@ async function main() {
           },
         });
       }
-      
+
       users.push(user);
       console.log(`✅ Created user: ${user.email}`);
     }
@@ -108,7 +108,7 @@ async function main() {
       prisma.user.count(),
       prisma.account.count(),
       prisma.session.count(),
-      prisma.verificationToken.count()
+      prisma.verificationToken.count(),
     ]);
 
     // Print summary
@@ -120,7 +120,7 @@ async function main() {
     console.log(`✉️  Verification Tokens: ${verificationTokenCount}`);
     console.log(`⏱️  Time taken: ${((Date.now() - startTime) / 1000).toFixed(2)}s`);
     console.log('===================================');
-    
+
     return { users };
   } catch (error) {
     console.error('❌ Error during database seeding:');

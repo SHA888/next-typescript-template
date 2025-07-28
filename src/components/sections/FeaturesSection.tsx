@@ -76,7 +76,7 @@ export function FeaturesSection() {
           <h2 className="text-gradient-primary mb-4 text-3xl font-bold md:text-5xl">
             Everything You Need
           </h2>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-lg text-balance">
+          <p className="mx-auto max-w-2xl text-balance text-lg text-muted-foreground">
             Built with modern development practices and industry best practices to accelerate your
             project delivery.
           </p>
@@ -91,11 +91,11 @@ export function FeaturesSection() {
             >
               <CardContent className="p-6">
                 <div className="mb-4">
-                  <div className="from-primary to-secondary mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br transition-transform duration-300 group-hover:scale-110">
-                    <feature.icon className="text-primary-foreground h-6 w-6" />
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-secondary transition-transform duration-300 group-hover:scale-110">
+                    <feature.icon className="h-6 w-6 text-primary-foreground" />
                   </div>
                   <h3 className="mb-2 text-lg font-semibold">{feature.title}</h3>
-                  <p className="text-muted-foreground text-sm leading-relaxed">
+                  <p className="text-sm leading-relaxed text-muted-foreground">
                     {feature.description}
                   </p>
                 </div>
