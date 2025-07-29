@@ -1,8 +1,27 @@
-# Next TypeScript Template
+# Next Nest TypeScript Template (Monorepo)
 
-> **Note**: This project was originally generated using [Lovable](https://lovable.dev), an AI-powered application development platform.
+This is a full-stack web application template built with Next.js, TypeScript, and Prisma ORM in 2025, organized as a monorepo using Turborepo. It integrates a frontend (React 18, TypeScript, Tailwind CSS, shadcn/ui, ESLint) with a robust NestJS backend. The template uses Next.js's App Router for server-side rendering (SSR), static site generation (SSG), and API routes, ensuring performance, SEO, and type safety.
 
-This is a full-stack web application template built with Next.js, TypeScript, and Prisma ORM in 2025, integrating a Lovable-generated frontend (React 18, TypeScript, Tailwind CSS, shadcn/ui, ESLint) with a robust backend. The template uses Next.js's App Router for server-side rendering (SSR), static site generation (SSG), and API routes, ensuring performance, SEO, and type safety. It supports a hybrid approach for complex backend needs, making it ideal for scalable applications like SaaS platforms, e-commerce, or real-time dashboards.
+## Workspace Structure
+
+```
+next-typescript-template/
+├── apps/
+│   ├── frontend/         # Next.js frontend application
+│   └── backend/          # NestJS backend application
+├── packages/
+│   ├── shared/           # Shared types and utilities
+│   └── database/         # Prisma schema and client (optional)
+├── package.json          # Root package.json with workspace config
+└── turbo.json            # Turborepo configuration
+```
+
+## Why a Monorepo?
+
+- **Shared Code**: Easily share types, utilities, and configurations between frontend and backend
+- **Consistent Tooling**: Single lint, build, and test process for the entire project
+- **Simplified Dependencies**: Manage all dependencies in one place
+- **Atomic Changes**: Make changes across multiple packages with a single commit
 
 ## Features
 
@@ -33,21 +52,69 @@ cd next-typescript-template
 
 ### 2. Install Dependencies
 
-Using npm:
+This project uses pnpm workspaces. Make sure you have pnpm installed:
 
 ```bash
-npm install
+npm install -g pnpm
 ```
 
-Or using yarn:
+Then install all dependencies:
 
 ```bash
-yarn install
+pnpm install
 ```
 
-Or using pnpm:
+### 3. Set Up Environment Variables
+
+Copy the example environment files and update them with your configuration:
 
 ```bash
+cp apps/backend/.env.example apps/backend/.env
+cp apps/frontend/.env.example apps/frontend/.env.local
+```
+
+### 4. Set Up the Database
+
+Run database migrations and seed the database:
+
+```bash
+# From the root directory
+pnpm db:push
+pnpm db:generate
+```
+
+### 5. Start the Development Servers
+
+To start both frontend and backend in development mode:
+
+```bash
+pnpm dev
+```
+
+This will start:
+- Frontend at http://localhost:3000
+- Backend at http://localhost:3001 (or your configured port)
+
+## Available Scripts
+
+From the root directory, you can run:
+
+- `pnpm dev` - Start all apps in development mode
+- `pnpm build` - Build all apps for production
+- `pnpm start` - Start all apps in production mode
+- `pnpm lint` - Lint all apps
+- `pnpm test` - Run tests for all apps
+- `pnpm format` - Format all files with Prettier
+
+To run a command for a specific app, use the `--filter` flag:
+
+```bash
+# Run tests only for the backend
+pnpm --filter backend test
+
+# Start only the frontend
+pnpm --filter frontend dev
+```
 pnpm install
 ```
 
@@ -828,7 +895,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 This project was made possible thanks to:
 
-- [Lovable](https://lovable.dev) - For the initial project generation and setup
 - The entire open-source community for their invaluable contributions to the technologies used in this template
 
 ## Resources
