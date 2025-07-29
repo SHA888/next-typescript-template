@@ -12,7 +12,7 @@ export class UsersService {
   async create(createUserDto: CreateUserDto) {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
 
-    return this.prisma.user.create({
+    const user = await this.prisma.user.create({
       data: {
         email: createUserDto.email,
         password: hashedPassword,
@@ -20,16 +20,11 @@ export class UsersService {
         role: (createUserDto.role || 'USER') as UserRole,
         image: createUserDto.image || null,
       },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        role: true,
-        image: true,
-        createdAt: true,
-        updatedAt: true,
-      },
     });
+
+    // Omit password and other sensitive fields from the response
+    const { password, resetToken, resetTokenExpiry, ...result } = user;
+    return result;
   }
 
   async findAll(page = 1, pageSize = 10) {
@@ -39,22 +34,19 @@ export class UsersService {
       this.prisma.user.findMany({
         skip,
         take: pageSize,
-        select: {
-          id: true,
-          email: true,
-          name: true,
-          role: true,
-          image: true,
-          createdAt: true,
-          updatedAt: true,
-        },
         orderBy: { createdAt: 'desc' },
       }),
       this.prisma.user.count(),
     ]);
 
+    // Remove sensitive data from each user
+    const sanitizedUsers = users.map((user) => {
+      const { password, resetToken, resetTokenExpiry, ...userWithoutSensitiveData } = user;
+      return userWithoutSensitiveData;
+    });
+
     return {
-      data: users,
+      data: sanitizedUsers,
       meta: {
         total,
         page,
@@ -65,24 +57,62 @@ export class UsersService {
   }
 
   async findOne(id: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { id },
-      select: {
-        id: true,
-        email: true,
-        name: true,
-        role: true,
-        image: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+    console.log('\n--- UsersService.findOne ---');
+    console.log('Looking up user with ID:', id);
 
-    if (!user) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+    try {
+      // First, check if the user exists in the database
+      const allUsers = await this.prisma.user.findMany();
+      console.log(
+        'All users in database:',
+        allUsers.map((u) => ({ id: u.id, email: u.email }))
+      );
+
+      const user = await this.prisma.user.findUnique({
+        where: { id },
+      });
+
+      if (!user) {
+        console.error(
+          `User with ID ${id} not found in database. Available users:`,
+          allUsers.map((u) => u.id)
+        );
+        throw new NotFoundException(`User with ID ${id} not found`);
+      }
+
+      console.log('Found user:', {
+        id: user.id,
+        email: user.email,
+        role: user.role,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+        emailVerified: user.emailVerified,
+        image: user.image,
+      });
+
+      // Omit sensitive data
+      const { password, resetToken, resetTokenExpiry, ...result } = user;
+
+      // Log what we're returning
+      console.log('Returning user data (sensitive fields omitted):', {
+        ...result,
+        hasPassword: 'password' in user,
+        hasResetToken: 'resetToken' in user,
+      });
+
+      return result;
+    } catch (error) {
+      console.error('Error in UsersService.findOne:', {
+        message: error.message,
+        name: error.name,
+        stack: error.stack,
+        code: error.code,
+        meta: error.meta,
+      });
+
+      // Re-throw the error for the controller to handle
+      throw error;
     }
-
-    return user;
   }
 
   async findByEmail(email: string) {

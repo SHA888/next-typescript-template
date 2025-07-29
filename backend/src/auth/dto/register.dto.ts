@@ -6,7 +6,9 @@ import {
   IsString,
   Matches,
   IsUrl,
+  IsEnum,
 } from 'class-validator';
+import { UserRole } from '@prisma/client';
 
 export class RegisterDto {
   @IsEmail({}, { message: 'Please provide a valid email address' })
@@ -38,4 +40,8 @@ export class RegisterDto {
   @IsString({ message: 'Image must be a string' })
   @IsUrl({}, { message: 'Image must be a valid URL' })
   image?: string;
+
+  @IsOptional()
+  @IsEnum(UserRole, { message: 'Invalid user role' })
+  role?: UserRole;
 }

@@ -93,7 +93,7 @@ export class AuthService {
         password: hashedPassword,
         name: registerDto.name || registerDto.email.split('@')[0],
         image: registerDto.image || null,
-        role: 'USER',
+        role: registerDto.role || 'USER',
       },
     });
 

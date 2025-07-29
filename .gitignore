@@ -102,3 +102,6 @@ test-cookies.txt
 # .taskmaster/
 # tasks.json
 # tasks/
+
+# Test environment variables
+.env.test
