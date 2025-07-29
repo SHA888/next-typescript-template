@@ -1,8 +1,6 @@
-# Next TypeScript Template (Monorepo)
+# Next Nest TypeScript Template (Monorepo)
 
-> **Note**: This project was originally generated using [Lovable](https://lovable.dev), an AI-powered application development platform, and has been restructured as a monorepo.
-
-This is a full-stack web application template built with Next.js, TypeScript, and Prisma ORM in 2025, organized as a monorepo using Turborepo. It integrates a Lovable-generated frontend (React 18, TypeScript, Tailwind CSS, shadcn/ui, ESLint) with a robust NestJS backend. The template uses Next.js's App Router for server-side rendering (SSR), static site generation (SSG), and API routes, ensuring performance, SEO, and type safety.
+This is a full-stack web application template built with Next.js, TypeScript, and Prisma ORM in 2025, organized as a monorepo using Turborepo. It integrates a frontend (React 18, TypeScript, Tailwind CSS, shadcn/ui, ESLint) with a robust NestJS backend. The template uses Next.js's App Router for server-side rendering (SSR), static site generation (SSG), and API routes, ensuring performance, SEO, and type safety.
 
 ## Workspace Structure
 
@@ -897,7 +895,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 This project was made possible thanks to:
 
-- [Lovable](https://lovable.dev) - For the initial project generation and setup
 - The entire open-source community for their invaluable contributions to the technologies used in this template
 
 ## Resources
