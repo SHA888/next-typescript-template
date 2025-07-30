@@ -2,7 +2,6 @@ import type { NextAuthOptions, DefaultSession, Session, User as AuthUser } from 
 import type { JWT } from 'next-auth/jwt';
 import Credentials from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
-import { PrismaClient, User as PrismaUser } from '@prisma/client';
 
 // Extend NextAuth types to include role in session
 declare module 'next-auth' {
@@ -34,8 +33,6 @@ declare module 'next-auth/jwt' {
     role?: string;
   }
 }
-
-const prisma = new PrismaClient();
 
 // Enable debug logging for development
 const debug = process.env.NODE_ENV === 'development';
@@ -99,7 +96,7 @@ export const authOptions: NextAuthOptions = {
             id: user.id,
             email: user.email,
             name: user.name,
-            role: (user as PrismaUser & { role?: string }).role || 'user',
+            role: (user as User & { role?: string }).role || 'user',
           };
         } catch (error) {
           console.error('Authentication error:', error);

@@ -1,10 +1,13 @@
 {
   "name": "next-typescript-template",
   "version": "0.1.0",
+  "description": "Next TypeScript Template",
+  "author": "Kresna Sucandra",
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*"
+    "packages/*",
+    "packages/database"
   ],
   "scripts": {
     "dev": "turbo run dev",
@@ -13,11 +16,10 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prepare": "husky",
     "clean": "turbo clean && rm -rf node_modules",
-    "db:studio": "turbo run db:studio",
-    "db:push": "turbo run db:push",
-    "db:generate": "turbo run prisma:generate"
+    "db:studio": "cd packages/database && pnpm prisma:studio",
+    "db:push": "cd packages/database && pnpm prisma:migrate",
+    "db:generate": "cd packages/database && pnpm prisma:generate"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
@@ -34,6 +36,9 @@
     "node": ">=18.0.0"
   },
   "prisma": {
-    "schema": "apps/backend/prisma/schema.prisma"
+    "schema": "packages/database/prisma/schema.prisma"
+  },
+  "dependencies": {
+    "tsup": "^8.0.0"
   }
 }

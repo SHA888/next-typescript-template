@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@app/database';
 
 // Simple Prisma client with minimal configuration
 const prisma = new PrismaClient({

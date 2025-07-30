@@ -1,7 +1,7 @@
-import { Strategy } from 'passport-local';
-import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { AuthService } from '../auth.service';
+import { Strategy } from "passport-local";
+import { PassportStrategy } from "@nestjs/passport";
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { AuthService } from "../auth.service";
 
 // Define the User type based on the Prisma schema
 type User = {
@@ -11,7 +11,7 @@ type User = {
   emailVerified: Date | null;
   image: string | null;
   password: string | null;
-  role: 'USER' | 'ADMIN';
+  role: "USER" | "ADMIN";
   resetToken: string | null;
   resetTokenExpiry: Date | null;
   createdAt: Date;
@@ -25,7 +25,7 @@ type UserWithoutPassword = {
   email: string | null;
   emailVerified: Date | null;
   image: string | null;
-  role: 'USER' | 'ADMIN';
+  role: "USER" | "ADMIN";
   resetToken: string | null;
   resetTokenExpiry: Date | null;
   createdAt: Date;
@@ -42,13 +42,16 @@ function excludePassword(user: User): UserWithoutPassword {
 @Injectable()
 export class LocalStrategy extends PassportStrategy(Strategy) {
   constructor(private authService: AuthService) {
-    super({ usernameField: 'email' });
+    super({ usernameField: "email" });
   }
 
-  async validate(email: string, password: string): Promise<UserWithoutPassword> {
+  async validate(
+    email: string,
+    password: string,
+  ): Promise<UserWithoutPassword> {
     const user = await this.authService.validateUser(email, password);
     if (!user) {
-      throw new UnauthorizedException('Invalid email or password');
+      throw new UnauthorizedException("Invalid email or password");
     }
     return excludePassword(user as User);
   }

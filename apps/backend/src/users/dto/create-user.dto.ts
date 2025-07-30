@@ -1,4 +1,11 @@
-import { IsEmail, IsOptional, IsString, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsEnum,
+  IsOptional,
+  IsString,
+  MinLength,
+} from "class-validator";
+import { UserRole } from "@workspace/shared";
 
 export class CreateUserDto {
   @IsEmail()
@@ -12,9 +19,9 @@ export class CreateUserDto {
   @IsOptional()
   name?: string;
 
-  @IsString()
+  @IsEnum(UserRole)
   @IsOptional()
-  role?: string;
+  role?: UserRole = UserRole.USER;
 
   @IsString()
   @IsOptional()

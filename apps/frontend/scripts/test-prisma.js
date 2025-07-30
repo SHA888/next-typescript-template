@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 // Simple test script to verify Prisma client functionality
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@app/database';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 import dotenv from 'dotenv';

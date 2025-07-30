@@ -1,30 +1,32 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import * as bcrypt from 'bcryptjs';
-import { UserRole } from '@prisma/client';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { PrismaService } from "../prisma/prisma.service";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import * as bcrypt from "bcryptjs";
+import { User, UserRole, SafeUser } from "@workspace/shared";
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(createUserDto: CreateUserDto): Promise<SafeUser> {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+    const defaultName = createUserDto.email.split("@")[0];
+    const role = createUserDto.role || UserRole.USER;
 
     const user = await this.prisma.user.create({
       data: {
         email: createUserDto.email,
         password: hashedPassword,
-        name: createUserDto.name || createUserDto.email.split('@')[0],
-        role: (createUserDto.role || 'USER') as UserRole,
+        name: createUserDto.name || defaultName,
+        role,
         image: createUserDto.image || null,
       },
     });
 
-    // Omit password and other sensitive fields from the response
-    const { password, resetToken, resetTokenExpiry, ...result } = user;
-    return result;
+    // Convert to SafeUser type which omits sensitive fields
+    const { password, ...safeUser } = user;
+    return safeUser;
   }
 
   async findAll(page = 1, pageSize = 10) {
@@ -34,14 +36,19 @@ export class UsersService {
       this.prisma.user.findMany({
         skip,
         take: pageSize,
-        orderBy: { createdAt: 'desc' },
+        orderBy: { createdAt: "desc" },
       }),
       this.prisma.user.count(),
     ]);
 
     // Remove sensitive data from each user
     const sanitizedUsers = users.map((user) => {
-      const { password, resetToken, resetTokenExpiry, ...userWithoutSensitiveData } = user;
+      const {
+        password,
+        resetToken,
+        resetTokenExpiry,
+        ...userWithoutSensitiveData
+      } = user;
       return userWithoutSensitiveData;
     });
 
@@ -57,15 +64,15 @@ export class UsersService {
   }
 
   async findOne(id: string) {
-    console.log('\n--- UsersService.findOne ---');
-    console.log('Looking up user with ID:', id);
+    console.log("\n--- UsersService.findOne ---");
+    console.log("Looking up user with ID:", id);
 
     try {
       // First, check if the user exists in the database
       const allUsers = await this.prisma.user.findMany();
       console.log(
-        'All users in database:',
-        allUsers.map((u) => ({ id: u.id, email: u.email }))
+        "All users in database:",
+        allUsers.map((u) => ({ id: u.id, email: u.email })),
       );
 
       const user = await this.prisma.user.findUnique({
@@ -75,12 +82,12 @@ export class UsersService {
       if (!user) {
         console.error(
           `User with ID ${id} not found in database. Available users:`,
-          allUsers.map((u) => u.id)
+          allUsers.map((u) => u.id),
         );
         throw new NotFoundException(`User with ID ${id} not found`);
       }
 
-      console.log('Found user:', {
+      console.log("Found user:", {
         id: user.id,
         email: user.email,
         role: user.role,
@@ -94,15 +101,15 @@ export class UsersService {
       const { password, resetToken, resetTokenExpiry, ...result } = user;
 
       // Log what we're returning
-      console.log('Returning user data (sensitive fields omitted):', {
+      console.log("Returning user data (sensitive fields omitted):", {
         ...result,
-        hasPassword: 'password' in user,
-        hasResetToken: 'resetToken' in user,
+        hasPassword: "password" in user,
+        hasResetToken: "resetToken" in user,
       });
 
       return result;
     } catch (error) {
-      console.error('Error in UsersService.findOne:', {
+      console.error("Error in UsersService.findOne:", {
         message: error.message,
         name: error.name,
         stack: error.stack,
@@ -115,10 +122,10 @@ export class UsersService {
     }
   }
 
-  async findByEmail(email: string) {
+  async findByEmail(email: string): Promise<User | null> {
     return this.prisma.user.findUnique({
       where: { email },
-    });
+    }) as Promise<User | null>;
   }
 
   async update(id: string, updateUserDto: UpdateUserDto) {
@@ -131,27 +138,17 @@ export class UsersService {
 
     if (updateUserDto.password) {
       if (!updateUserDto.currentPassword) {
-        throw new Error('Current password is required to change password');
+        throw new Error("Current password is required to change password");
       }
 
       const user = await this.prisma.user.findUnique({ where: { id } });
       if (!user) {
         throw new NotFoundException(`User with ID ${id} not found`);
       }
-
-      const isValid = await bcrypt.compare(updateUserDto.currentPassword, user.password);
-      if (!isValid) {
-        throw new Error('Current password is incorrect');
-      }
-
       data.password = await bcrypt.hash(updateUserDto.password, 10);
-      delete data.currentPassword;
-    } else {
-      delete data.password;
-      delete data.currentPassword;
     }
 
-    return this.prisma.user.update({
+    const updatedUser = (await this.prisma.user.update({
       where: { id },
       data,
       select: {
@@ -163,24 +160,27 @@ export class UsersService {
         createdAt: true,
         updatedAt: true,
       },
-    });
+    })) as SafeUser;
+
+    return updatedUser;
   }
 
-  async remove(id: string) {
-    try {
-      return await this.prisma.user.delete({
-        where: { id },
-        select: {
-          id: true,
-          email: true,
-          name: true,
-        },
-      });
-    } catch (error) {
-      if (error.code === 'P2025') {
-        throw new NotFoundException(`User with ID ${id} not found`);
-      }
-      throw error;
-    }
+  async remove(id: string): Promise<SafeUser> {
+    await this.findOne(id); // Check if user exists
+
+    const deletedUser = (await this.prisma.user.delete({
+      where: { id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        image: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    })) as SafeUser;
+
+    return deletedUser;
   }
 }

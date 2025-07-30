@@ -1,5 +1,6 @@
 const nextConfig = {
   reactStrictMode: true,
+  transpilePackages: ['@app/database'],
   images: {
     domains: ['localhost'],
     formats: ['image/avif', 'image/webp'],

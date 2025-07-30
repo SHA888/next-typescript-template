@@ -1,24 +1,41 @@
 # ============================================
 # Dependencies
 # ============================================
-/node_modules
+# Global node_modules
+**/node_modules/
 /.pnp
 .pnp.js
 .pnpm-debug.log*
 .yarn-integrity
+.pnpm-store/
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
 
 # ============================================
 # Build Outputs
 # ============================================
-# Next.js
+# Next.js Frontend
 **/.next/
 /out/
 /build
+.next/
 
-# NestJS/Backend
+# NestJS Backend
 **/dist/
 **/tsconfig.tsbuildinfo
 *.log
+
+# TypeScript
+*.tsbuildinfo
+**/*.d.ts
+**/*.d.ts.map
+
+# Package managers
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
 
 # Turbo
 .turbo/
@@ -26,11 +43,12 @@
 # ============================================
 # Testing
 # ============================================
-/coverage
-/apps/backend/coverage
+**/coverage/
+**/coverage-*
 *.test.js
 *.spec.js
 *.e2e-spec.js
+**/__tests__/coverage/
 
 # ============================================
 # Environment
@@ -38,14 +56,94 @@
 .env
 .env.*
 !.env.example
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 # ============================================
 # Logs
 # ============================================
-logs
-*.log
+**/logs
+**/*.log
 npm-debug.log*
 yarn-debug.log*
+yarn-error.log*
+
+# ============================================
+# IDE & Editor
+# ============================================
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ============================================
+# OS generated files
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# ============================================
+# Build caches and temp files
+# ============================================
+.cache/
+.temp/
+.tmp/
+.temp*
+*.tmp
+
+# ============================================
+# Package specific
+# ============================================
+# Prisma
+**/prisma/migrations/
+!**/prisma/schema.prisma
+
+# Next.js
+.next/
+out/
+
+# NestJS
+dist/
+
+# TypeORM
+**/migrations/*.js
+**/migrations/*.map
+
+# ============================================
+# Misc
+# ============================================
+*.bak
+*.backup
+*~
+*#
+
+# Debug logs from npm
+npm-debug.log*
+
+# Yarn v2
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# pnpm
+.pnpm-debug.log*
+
+# Lerna
+lerna-debug.log*
 yarn-error.log*
 
 # ============================================
