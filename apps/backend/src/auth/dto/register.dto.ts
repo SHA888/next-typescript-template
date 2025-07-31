@@ -8,7 +8,7 @@ import {
   IsUrl,
   IsEnum,
 } from "class-validator";
-import UserRole from "@app/database";
+import { UserRole } from "@workspace/shared";
 
 export class RegisterDto {
   @IsEmail({}, { message: "Please provide a valid email address" })

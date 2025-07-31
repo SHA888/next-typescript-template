@@ -33,7 +33,7 @@ async function bootstrap() {
   // Security middleware
   app.use(helmet());
   app.enableCors({
-    origin: process.env.FRONTEND_URL || "http://localhost:3000",
+    origin: process.env.FRONTEND_URL || "http://localhost:5000",
     credentials: true,
   });
   logger.log("Security middleware configured");
@@ -49,14 +49,27 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup("api", app, document);
 
-  const port = process.env.PORT || 5000;
-  await app.listen(port);
-
+  // Set and log the port
+  const port = process.env.PORT || 5002;
+  logger.log(`Environment PORT: ${process.env.PORT || 'not set'}`);
+  logger.log(`Attempting to start server on port: ${port}`);
+  
+  // Get the HTTP server instance
+  const server = app.getHttpServer();
+  
+  // Log the actual port the server is listening on
+  server.on('listening', () => {
+    const addr = server.address();
+    const bind = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr?.port}`;
+    logger.log(`Server is listening on ${bind}`);
+  });
+  
+  // Start the server
+  await app.listen(port, '0.0.0.0');
   logger.log(`Application is running on: http://localhost:${port}`);
   logger.log(`API documentation available at: http://localhost:${port}/api`);
 
   // Log all routes
-  const server = app.getHttpServer();
   const router = server._events.request._router;
   const routes = router.stack
     .map((layer) => {

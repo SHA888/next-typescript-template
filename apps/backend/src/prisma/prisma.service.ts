@@ -1,34 +1,37 @@
-import { Injectable, OnModuleInit, OnModuleDestroy } from "@nestjs/common";
-import { PrismaClient as BasePrismaClient } from "@prisma/client";
-import { User, Account, Session } from "@workspace/shared";
+import { Injectable, OnModuleInit, OnModuleDestroy, Logger } from '@nestjs/common';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
-export class PrismaService
-  extends BasePrismaClient
-  implements OnModuleInit, OnModuleDestroy
+export class PrismaService 
+  extends PrismaClient
+  implements OnModuleInit, OnModuleDestroy 
 {
   private readonly logger = new Logger(PrismaService.name);
 
+  constructor() {
+    super({
+      log: ['query', 'info', 'warn', 'error'],
+      errorFormat: 'minimal',
+    });
+  }
+
   async onModuleInit() {
-    await this.$connect();
-    this.logger.log("Connected to the database");
+    try {
+      await this.$connect();
+      this.logger.log('Successfully connected to the database');
+    } catch (error) {
+      this.logger.error('Error connecting to the database', error);
+      throw error;
+    }
   }
 
   async onModuleDestroy() {
-    await this.$disconnect();
-    this.logger.log("Disconnected from the database");
-  }
-
-  // Explicitly expose models for better type safety
-  get user() {
-    return this.user;
-  }
-
-  get account() {
-    return this.account;
-  }
-
-  get session() {
-    return this.session;
+    try {
+      await this.$disconnect();
+      this.logger.log('Disconnected from the database');
+    } catch (error) {
+      this.logger.error('Error disconnecting from the database', error);
+      throw error;
+    }
   }
 }

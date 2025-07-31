@@ -26,10 +26,19 @@ import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 import { RolesGuard } from "../auth/guards/roles.guard";
 import { Roles } from "../auth/decorators/roles.decorator";
 import { User as SharedUser, UserRole, SafeUser } from "@workspace/shared";
-import {
-  AuthenticatedUser,
-  isAuthenticatedUser,
-} from "../common/types/request.types";
+// Simplified type for authenticated user from JWT
+interface AuthenticatedUser {
+  userId: string;
+  email: string;
+  role: string;
+  id?: string;
+  sub?: string;
+}
+
+// Type guard for authenticated user
+function isAuthenticatedUser(user: any): user is AuthenticatedUser {
+  return user && typeof user === 'object' && 'userId' in user && 'email' in user && 'role' in user;
+}
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import {

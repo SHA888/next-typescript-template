@@ -1,4 +1,4 @@
-import { PrismaClient } from "@app/database";
+import { PrismaClient } from "@prisma/client";
 
 // Test database configuration
 export const testConfig = {

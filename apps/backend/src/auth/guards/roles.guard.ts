@@ -5,7 +5,7 @@ import {
   Injectable,
 } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
-import UserRole from "@app/database";
+import { UserRole } from "@workspace/shared";
 
 export const ROLES_KEY = "roles";
 
@@ -14,11 +14,11 @@ const ANY_AUTHENTICATED = "ANY_AUTHENTICATED";
 
 type UserWithRole = {
   id: string;
-  role: keyof typeof UserRole;
+  role: UserRole;
   [key: string]: unknown;
 };
 
-type AllowedRoles = keyof typeof UserRole | typeof ANY_AUTHENTICATED;
+type AllowedRoles = UserRole | typeof ANY_AUTHENTICATED;
 
 @Injectable()
 export class RolesGuard implements CanActivate {
@@ -28,7 +28,7 @@ export class RolesGuard implements CanActivate {
     const requiredRoles = this.reflector.getAllAndOverride<AllowedRoles[]>(
       ROLES_KEY,
       [context.getHandler(), context.getClass()],
-    ) as (keyof typeof UserRole | typeof ANY_AUTHENTICATED)[];
+    ) as (UserRole | typeof ANY_AUTHENTICATED)[];
 
     if (!requiredRoles || requiredRoles.length === 0) {
       return true;

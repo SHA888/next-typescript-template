@@ -26,9 +26,12 @@
       "@/*": ["src/*"],
       "@workspace/shared": ["../../../packages/shared/src/index.ts"],
       "@workspace/shared/*": ["../../../packages/shared/src/*"]
-    }
+    },
+    "typeRoots": [
+      "./node_modules/@types"
+    ]
   },
   "$schema": "https://json.schemastore.org/tsconfig",
   "exclude": ["node_modules", "dist"],
-  "include": ["src/**/*", "test/**/*.ts"]
+  "include": ["src/**/*", "test/**/*.ts", "src/types/**/*.d.ts"]
 }

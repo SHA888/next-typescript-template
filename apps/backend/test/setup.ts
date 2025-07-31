@@ -1,7 +1,7 @@
 import { Test, TestingModule } from "@nestjs/testing";
 import { INestApplication } from "@nestjs/common";
 import { AppModule } from "../src/app.module";
-import { PrismaClient } from "@app/database";
+import { PrismaClient } from "@prisma/client";
 
 let app: INestApplication;
 const prisma = new PrismaClient();

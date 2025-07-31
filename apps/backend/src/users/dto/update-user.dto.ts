@@ -9,6 +9,10 @@ import {
 import { CreateUserDto } from "./create-user.dto";
 import { UserRole } from "@workspace/shared";
 
+export const ALLOWED_USER_ROLES = Object.values(UserRole).filter(
+  (value) => typeof value === 'string'
+) as string[];
+
 export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsString()
   @IsOptional()
@@ -23,7 +27,11 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
   @IsOptional()
   password?: string;
 
-  @IsEnum(UserRole)
+  @IsString()
   @IsOptional()
   currentPassword?: string;
+
+  @IsEnum(UserRole, { message: 'Invalid role' })
+  @IsOptional()
+  role?: UserRole;
 }
